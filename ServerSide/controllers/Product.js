@@ -18,6 +18,7 @@ async function AddProduct(req, res) {
     product_brand,
     product_rating,
     Image_url,
+    product_stock,
   } = req.body;
 
   if (
@@ -28,7 +29,8 @@ async function AddProduct(req, res) {
     !discount_rate ||
     !product_brand ||
     !product_rating ||
-    !Image_url
+    !Image_url ||
+    !product_stock
   )
     return res.json({ msg: "all product details is required" });
   try {
@@ -38,6 +40,7 @@ async function AddProduct(req, res) {
       product_description,
       product_price,
       discount_rate,
+      product_stock,
       product_brand,
       product_rating,
       Image_url,
