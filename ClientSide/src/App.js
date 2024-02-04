@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Loding from "./components/Loder";
 import MyContext from "./Redux/Context";
@@ -13,6 +13,8 @@ const ErrorPage = lazy(() => import("./Pages/ErrorPage"));
 const ProfilePage = lazy(() => import("./Pages/ProfilePage"));
 const LikedProPage = lazy(() => import("./Pages/LikedProPage"));
 const SingleProductPage = lazy(() => import("./Pages/SingleProductPage"));
+const AdminPage = lazy(() => import("./Pages/AdminPages/AdminPage"));
+const AdminLogin = lazy(() => import("./Pages/AdminPages/AdminLogin"));
 function App() {
   return (
     <>
@@ -33,7 +35,27 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
               <Route path="*" element={<ErrorPage />} />
+
+              <Route path="/admin">
+                <Route path="" element={<AdminLogin />} />
+                <Route path="order" element={<AdminPage Path={"order"} />} />
+                <Route
+                  path="products"
+                  element={<AdminPage Path={"products"} />}
+                />
+                <Route
+                  path="products/add"
+                  element={<AdminPage Path={"AddProducts"} />}
+                />
+                <Route
+                  path="products/update/:id"
+                  element={<AdminPage Path={"AddProducts"} />}
+                />
+                <Route path="user" element={<AdminPage Path={"user"} />} />
+                <Route path="graphs" element={<AdminPage Path={"graphs"} />} />
+              </Route>
             </Routes>
+
             <Footer />
           </MyContext>
         </Suspense>

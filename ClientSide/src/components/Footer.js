@@ -1,10 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Footer() {
+  let { pathname } = useLocation();
+  let isAdminPath = pathname.slice(1, 6);
+  if (isAdminPath === "admin") return;
+
   return (
     <>
-      <footer className=" left-0 mt-[4rem] w-full pt-[1rem] bg-black text-white">
+      <footer className=" left-0 w-full pt-[1rem] bg-black text-white">
         <div className="w-full px-[4rem] max-sm:px-[2.6rem] py-[3rem] flex max-sm:flex-col gap-[4rem] max-sm:gap-[2rem]">
           <div className="flex flex-col justify-between w-1/3 max-sm:w-full">
             <h2 className="text-[1.4rem] font-semibold">ShopNest</h2>

@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { FaShoppingBag, FaHeart, FaUser } from "react-icons/fa";
 
 function Navebar() {
   const [isLogdin, setIsLogdin] = useState(true);
+  let { pathname } = useLocation();
+  let isAdminPath = pathname.slice(1, 6);
+  if (isAdminPath === "admin") return;
   return (
     <nav className=" z-50 px-[2.4rem] h-[3.5rem] max-sm:px-[1rem] flex justify-between items-center border-b-[1px] border-black bg-white">
       <Link to="/" className="cursor-pointer text-[1.3rem] font-semibold">

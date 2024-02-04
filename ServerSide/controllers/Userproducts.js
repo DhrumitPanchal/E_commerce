@@ -1,11 +1,11 @@
-const User = require("../models/UserModle");
+const User = require("../models/UserModel");
 
 // liked product controllers -------------------------------------------------------------------
 
 async function getLikedProducts(req, res) {
   const { id } = req.body;
   if (!id) {
-    return res.status(401).json({ msg: "undefind user" });
+    return res.status(401).json({ msg: "undefined user" });
   }
   try {
     await User.findById(id)
@@ -23,7 +23,7 @@ async function getLikedProducts(req, res) {
 async function addLikedProduct(req, res) {
   const { id, productId } = req.body;
   if (!id || !productId) {
-    return res.status(401).json({ msg: "undefind user id and product id" });
+    return res.status(401).json({ msg: "undefined user id and product id" });
   }
   try {
     const findUser = await User.findById(id).catch((err) => {
@@ -42,7 +42,7 @@ async function addLikedProduct(req, res) {
 async function removeFromLikedProduct(req, res) {
   const { id, productId } = req.body;
   if (!id || !productId) {
-    return res.status(401).json({ msg: "undefind user id and product id" });
+    return res.status(401).json({ msg: "undefined user id and product id" });
   }
   try {
     const findUser = await User.findById(id).catch((err) => {
@@ -54,7 +54,7 @@ async function removeFromLikedProduct(req, res) {
         (item) => item.productId !== productId
       ),
     });
-    return res.status(201).json({ msg: "product removed succesfully" });
+    return res.status(201).json({ msg: "product removed successfully" });
   } catch (error) {
     res.status(500).json({ msg: "internal server error" });
   }
@@ -65,7 +65,7 @@ async function removeFromLikedProduct(req, res) {
 async function getCartProducts(req, res) {
   const { id } = req.body;
   if (!id) {
-    return res.status(401).json({ msg: "undefind user" });
+    return res.status(401).json({ msg: "undefined user" });
   }
   try {
     await User.findById(id)
@@ -83,7 +83,7 @@ async function getCartProducts(req, res) {
 async function addCartProduct(req, res) {
   const { id, productId, quontity } = req.body;
   if (!id || !productId) {
-    return res.status(401).json({ msg: "undefind user id and product id" });
+    return res.status(401).json({ msg: "undefined user id and product id" });
   }
   try {
     const findUser = await User.findById(id).catch((err) => {
@@ -105,7 +105,7 @@ async function addCartProduct(req, res) {
 async function removeFromCartProduct(req, res) {
   const { id, productId } = req.body;
   if (!id || !productId) {
-    return res.status(401).json({ msg: "undefind user id and product id" });
+    return res.status(401).json({ msg: "undefine user id and product id" });
   }
   try {
     const findUser = await User.findById(id).catch((err) => {
@@ -117,7 +117,7 @@ async function removeFromCartProduct(req, res) {
         (item) => item.ProductID !== productId
       ),
     });
-    return res.status(201).json({ msg: "product removed succesfully" });
+    return res.status(201).json({ msg: "product removed successfully" });
   } catch (error) {
     res.status(500).json({ msg: "internal server error" });
   }
@@ -126,7 +126,7 @@ async function removeFromCartProduct(req, res) {
 async function updateCartProduct(req, res) {
   const { id, productId, quontity } = req.body;
   if (!id || !productId) {
-    return res.status(401).json({ msg: "undefind user id and product id" });
+    return res.status(401).json({ msg: "undefined user id and product id" });
   }
   try {
     const findUser = await User.findById(id).catch((err) => {

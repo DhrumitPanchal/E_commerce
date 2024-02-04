@@ -1,6 +1,6 @@
-const User = require("../models/UserModle");
+const User = require("../models/UserModel");
 const bcrypt = require("bcryptjs");
-async function hendleUserRegister(req, res) {
+async function handleUserRegister(req, res) {
   const { name, email, password } = req.body;
   if (!name || !email || !password)
     return res.json({ msq: "invalid credentials" });
@@ -14,22 +14,23 @@ async function hendleUserRegister(req, res) {
       password: HashPassword,
     });
 
-    res.status(201).json(user);
+    res.status(201).json({ msg: "user register successfully", user });
   } catch (error) {
     return res.status(500).json({ msg: "Internal server error" });
   }
 }
 
-async function hendleUserLogin(req, res) {
+async function handleUserLogin(req, res) {
   try {
     const { email, password } = req.body;
-    if (!email || !password) return res.json({ msq: "invalid credentials " });
+    if (!email || !password)
+      return res.json({ msg: "email and password are required" });
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ msg: "user not Found" });
 
     const checkPassword = await bcrypt.compare(password, user.password);
     if (checkPassword) {
-      res.status(200).json({ msg: "login succes fully" });
+      res.status(200).json({ msg: "login successfully" });
     } else {
       res.status(401).json({ msg: "invalid credentials" });
     }
@@ -38,4 +39,7 @@ async function hendleUserLogin(req, res) {
   }
 }
 
-module.exports = { hendleUserRegister, hendleUserLogin };
+module.exports = {
+  handleUserRegister: handleUserRegister,
+  handleUserLogin: handleUserLogin,
+};

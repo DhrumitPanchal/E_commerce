@@ -49,25 +49,25 @@ function ProductsPage() {
               <h2 className="font-bold">Discount</h2>
 
               <div className="flex flex-col gap-[.1rem] text-black/70">
-                <h3 className="cursor-pointer font-medium hover:text-black">
+                <h3 className="font-medium cursor-pointer hover:text-black">
                   Any Discount
                 </h3>
-                <h3 className="cursor-pointer font-medium hover:text-black">
+                <h3 className="font-medium cursor-pointer hover:text-black">
                   10% Off or more
                 </h3>
-                <h3 className="cursor-pointer font-medium hover:text-black">
+                <h3 className="font-medium cursor-pointer hover:text-black">
                   25% Off or more
                 </h3>
-                <h3 className="cursor-pointer font-medium hover:text-black">
+                <h3 className="font-medium cursor-pointer hover:text-black">
                   35% Off or more
                 </h3>
-                <h3 className="cursor-pointer font-medium hover:text-black">
+                <h3 className="font-medium cursor-pointer hover:text-black">
                   50% Off or more
                 </h3>
-                <h3 className="cursor-pointer font-medium hover:text-black">
+                <h3 className="font-medium cursor-pointer hover:text-black">
                   60% Off or more
                 </h3>
-                <h3 className="cursor-pointer font-medium hover:text-black">
+                <h3 className="font-medium cursor-pointer hover:text-black">
                   70% Off or more
                 </h3>
               </div>
@@ -75,7 +75,7 @@ function ProductsPage() {
           </div>
         </aside>
         {/* ----------------- products ------------------ */}
-        <div className="max-sm:mt-[4rem] pr-[.8rem] max-sm:pr-0 w-[calc(100%-18rem)] min-h-[calc(100vh-3.5rem)] max-sm:w-full flex justify-center flex-wrap gap-[2.5rem]">
+        <div className="max-sm:mt-[4rem] pr-[.8rem] mb-[4rem] max-sm:pr-0 w-[calc(100%-18rem)] min-h-[calc(100vh-3.5rem)] max-sm:w-full flex justify-center flex-wrap gap-[2.5rem]">
           {Data.map((e) => (
             <ProductCard data={e} />
           ))}{" "}

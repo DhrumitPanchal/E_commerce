@@ -1,4 +1,4 @@
-const Product = require("../models/ProductModle");
+const Product = require("../models/ProductModel");
 async function getAllProducts(req, res) {
   try {
     const allproduct = await Product.find();
@@ -26,7 +26,6 @@ async function AddProduct(req, res) {
     !product_category ||
     !product_description ||
     !product_price ||
-    !discount_rate ||
     !product_brand ||
     !product_rating ||
     !Image_url ||
@@ -46,7 +45,9 @@ async function AddProduct(req, res) {
       Image_url,
     });
 
-    res.status(200).json({ mas: "Product added succesfully", result: product });
+    res
+      .status(200)
+      .json({ mas: "Product added successfully", result: product });
   } catch (error) {
     return res.status(500).json({ msg: "Internal server error" });
   }
@@ -57,10 +58,10 @@ async function UpdateProduct(req, res) {
   if (!id || !data) return res.json({ msg: "product id and data is required" });
   try {
     const findProduct = await Product.findById(id);
-
     if (!findProduct) {
-      return res.status(400).json({ msg: "Product is not found" });
+      return res.status(404).json({ msg: "Product not found" });
     }
+
     const updatedProduct = await Product.findByIdAndUpdate(id, data);
     res
       .status(200)
@@ -72,17 +73,20 @@ async function UpdateProduct(req, res) {
 
 async function DeleteProduct(req, res) {
   const { id } = req.body;
+  if (!id) return res.json({ msg: "product id is required" });
+
   try {
     const findProduct = await Product.findById(id);
     if (!findProduct) {
-      return res.status(200).json({ msg: "Product is not found" });
+      return res.status(404).json({ msg: "Product not found" });
     }
     const deletedProduct = await Product.findByIdAndDelete(id);
     res
       .status(200)
-      .json({ msg: "Product deleted succesfully", result: deletedProduct });
+      .json({ msg: "Product deleted successfully", result: deletedProduct });
   } catch (error) {
-    return res.status(500).json({ msg: "Internal server error" });
+    res.status(500).json({ msg: "Internal server error" });
   }
 }
+
 module.exports = { getAllProducts, AddProduct, UpdateProduct, DeleteProduct };
