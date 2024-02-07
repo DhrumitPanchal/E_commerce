@@ -29,7 +29,7 @@ function Footer() {
               <Link to="/products">Products</Link>
               <Link to="cart">Cart</Link>
               <Link to="/profile">Profile</Link>
-              <Link to="/Likedproducts">Liked Products</Link>
+              <Link to="/Liked products">Liked Products</Link>
             </div>
           </div>
 

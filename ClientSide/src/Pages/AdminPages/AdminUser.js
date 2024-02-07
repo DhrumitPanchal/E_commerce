@@ -22,7 +22,7 @@ function AdminUser() {
   ];
   return (
     <main className="px-[1.6rem] pt-[1.4rem] pb-[2rem] flex flex-col gap-[1.2rem]">
-      {users.map((element) => (
+      {users?.map((element) => (
         <div className=" px-[1.6rem] py-[.6rem] flex items-center w-full h-fit rounded-[.6rem]  shadow-[0px_1px_2px_.8px_rgba(0,0,0,0.2)]">
           <div className="flex items-center w-full  h-full gap-[2rem]">
             <h2 className="text-[1.2rem] w-[20rem]  font-semibold">

@@ -1,21 +1,19 @@
-import React, { lazy, Suspense, useContext } from "react";
-import Loder from "../components/Loder";
+import React, { lazy, Suspense, useContext, useEffect } from "react";
 import Data from "../components/Data";
 import { Context } from "../Redux/Context";
+import Loading from "../components/Loading";
 
 const ProductCard = lazy(() => import("../components/ProductCard"));
 
 function HomePage() {
-  const { user, setUser, productData, setProductData, handleLikedProducts } =
-    useContext(Context);
-
+  const { productData, getAllProducts } = useContext(Context);
   return (
     <>
       <section className="bg-red-100 h-[calc(100vh-3.5rem)] w-full">
         <img
           src="https://img.freepik.com/premium-vector/online-shopping-background-illustrated-with-credit-card-3d-mobile-phone_269039-171.jpg?size=626&ext=jpg&ga=GA1.1.2119793234.1705506469&semt=ais"
           alt=""
-          className="h-full w-full"
+          className="w-full h-full"
         />
       </section>
 
@@ -25,25 +23,25 @@ function HomePage() {
         </h2>
         {/* --------------- products -------------------------- */}
 
-        <div className="mt-[3rem] flex justify-center flex-wrap gap-[3rem]">
-          <Suspense fallback={<Loder />}>
-            {Data.map((e) => (
-              <ProductCard data={e} />
+        <div className=" mt-[3rem] flex justify-center flex-wrap gap-[3rem] ">
+          <Suspense fallback={<Loading />}>
+            {productData?.map((e) => (
+              <ProductCard key={e.productID} data={e} />
             ))}
           </Suspense>
         </div>
       </section>
 
-      {/* -------------- baner ------------------- */}
+      {/* -------------- poster ------------------- */}
 
-      <section className="mt-[2rem] px-[6rem] max-sm:px-[1.2rem] py-[2rem] flex flex-col items-center">
+      <section className="mt-[2rem] mb-[4rem] px-[6rem] max-sm:px-[1.2rem] py-[2rem] flex flex-col items-center">
         <h2 className="text-[1.8rem] font-semibold">Blockbuster deals</h2>
         <div className="mt-[3rem] h-fit w-full flex flex-col gap-[1.2rem]">
           <div className="h-[22rem] max-sm:h-fit max-sm:min-h-[14rem] w-full bg-black/10">
             <img
               src="https://img.freepik.com/free-vector/beautiful-happy-diwali-festival-sale-banner_1017-21236.jpg?w=1380&t=st=1705506481~exp=1705507081~hmac=df6156f85c5db8374e1255d6d8a85193c9f7ed956eabd0ea7543be0b4deb6ebf"
               alt=""
-              className="h-full w-full"
+              className="w-full h-full"
             />
           </div>
 
@@ -52,14 +50,14 @@ function HomePage() {
               <img
                 src="https://img.freepik.com/premium-vector/flash-sale-banner-template-special-offer-big-sales_110633-460.jpg?size=626&ext=jpg&ga=GA1.1.2119793234.1705506469&semt=ais"
                 alt=""
-                className="h-full w-full"
+                className="w-full h-full"
               />
             </div>
             <div className="h-[22rem] max-sm:h-fit max-sm:min-h-[14rem] w-full bg-black/10">
               <img
                 src="https://img.freepik.com/free-vector/mega-sale-offers-banner-template_1017-31299.jpg?size=626&ext=jpg&ga=GA1.1.2119793234.1705506469&semt=ais"
                 alt=""
-                className="h-full w-full"
+                className="w-full h-full"
               />
             </div>
           </div>

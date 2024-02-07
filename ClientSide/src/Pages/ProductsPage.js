@@ -1,11 +1,11 @@
-import Loder from "../components/Loder";
 import Data from "../components/Data";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import ProductCard from "../components/ProductCard";
-import { useState } from "react";
-
+import { useState, useContext } from "react";
+import { Context } from "../Redux/Context";
 function ProductsPage() {
   const [priceRange, setPriceRange] = useState(250); // Initial value of 50
+  const { getAllProducts, productData } = useContext(Context);
 
   // Handle change in price range
   const handlePriceChange = (event) => {
@@ -24,7 +24,7 @@ function ProductsPage() {
         </div>
       </section>
       <section className="mt-[1rem] h-full w-full flex max-sm:flex-col">
-        <aside className="ml-[2rem] max-sm:ml-[1rem] px-[1rem] py-[1rem] bg-blue-gray-100/30 w-[18rem] max-sm:w-[calc(100%-2rem)] h-full">
+        <aside className="ml-[2rem] max-sm:ml-[1rem] px-[1rem] py-[1rem] bg-blue-500/5 w-[18rem] max-sm:w-[calc(100%-2rem)] h-full">
           <h2 className="text-[1.2rem] font-medium">Filters</h2>
           <div className="mt-[1rem] flex flex-col gap-[1rem]">
             <div className="">
@@ -76,9 +76,9 @@ function ProductsPage() {
         </aside>
         {/* ----------------- products ------------------ */}
         <div className="max-sm:mt-[4rem] pr-[.8rem] mb-[4rem] max-sm:pr-0 w-[calc(100%-18rem)] min-h-[calc(100vh-3.5rem)] max-sm:w-full flex justify-center flex-wrap gap-[2.5rem]">
-          {Data.map((e) => (
+          {productData?.map((e) => (
             <ProductCard data={e} />
-          ))}{" "}
+          ))}
         </div>
       </section>
     </>

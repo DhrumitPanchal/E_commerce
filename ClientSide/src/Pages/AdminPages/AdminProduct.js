@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
 import ProductCard from "../../components/AdminComponent/ProductCard";
 import { Context } from "../../Redux/Context";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from "axios";
 function AdminProduct() {
-  const { user, setUser, productData, setProductData } = useContext(Context);
+  const { user, productData } = useContext(Context);
   return (
     <>
       <nav className="px-[2rem] max-sm:px-[1rem] py-[1rem]  flex justify-between">
@@ -28,12 +29,8 @@ function AdminProduct() {
       </nav>
 
       <main className="px-[1.6rem] pt-[1.4rem] pb-[2rem] flex flex-col gap-[1.2rem]">
-        {productData.map((data, index) => (
-          <ProductCard
-            key={index}
-            Prodata={data}
-            quontity={user.cartProducts[index]?.Quontity}
-          />
+        {productData?.map((data, index) => (
+          <ProductCard key={index} ProductData={data} />
         ))}
       </main>
     </>

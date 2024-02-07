@@ -9,6 +9,8 @@ async function getAllProducts(req, res) {
 }
 
 async function AddProduct(req, res) {
+  console.log(req.body);
+
   const {
     product_name,
     product_category,
@@ -16,7 +18,6 @@ async function AddProduct(req, res) {
     product_price,
     discount_rate,
     product_brand,
-    product_rating,
     Image_url,
     product_stock,
   } = req.body;
@@ -27,7 +28,6 @@ async function AddProduct(req, res) {
     !product_description ||
     !product_price ||
     !product_brand ||
-    !product_rating ||
     !Image_url ||
     !product_stock
   )
@@ -41,7 +41,6 @@ async function AddProduct(req, res) {
       discount_rate,
       product_stock,
       product_brand,
-      product_rating,
       Image_url,
     });
 
@@ -49,12 +48,13 @@ async function AddProduct(req, res) {
       .status(200)
       .json({ mas: "Product added successfully", result: product });
   } catch (error) {
-    return res.status(500).json({ msg: "Internal server error" });
+    return res.status(500).json({ error, msg: "Internal server error" });
   }
 }
 
 async function UpdateProduct(req, res) {
   const { id, data } = req.body;
+  console.log(id, data);
   if (!id || !data) return res.json({ msg: "product id and data is required" });
   try {
     const findProduct = await Product.findById(id);
@@ -73,6 +73,7 @@ async function UpdateProduct(req, res) {
 
 async function DeleteProduct(req, res) {
   const { id } = req.body;
+
   if (!id) return res.json({ msg: "product id is required" });
 
   try {

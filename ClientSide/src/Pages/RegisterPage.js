@@ -12,9 +12,9 @@ function RegisterPage() {
     console.log(formData);
   };
   return (
-    <div className="fixed flex justify-center items-center top-0 left-0 h-screen w-full bg-white">
-      <div className="max-sm:hidden flex justify-center items-center w-1/2">
-        <img src="./Images/20824341_6368590.svg" className="h-[40rem]" />
+    <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-white">
+      <div className="flex items-center justify-center w-1/2 max-sm:hidden">
+        <img alt="" src="./Images/20824341_6368590.svg" className="h-[40rem]" />
       </div>
 
       <div className="px-[5rem] max-sm:px-[2rem] flex items-center justify-center flex-col gap-[1rem] w-1/2 max-sm:w-full h-full bg-[#f0f0ff] ">

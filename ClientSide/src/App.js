@@ -1,8 +1,10 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import Loding from "./components/Loder";
+import { lazy, Suspense, useContext, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Loading from "./components/Loading";
 import MyContext from "./Redux/Context";
-const Navebar = lazy(() => import("./components/Navebar"));
+import { Toaster } from "react-hot-toast";
+import { Context} from "./Redux/Context";
+const Navbar = lazy(() => import("./components/Navbar"));
 const Footer = lazy(() => import("./components/Footer"));
 const HomePage = lazy(() => import("./Pages/HomePage"));
 const ProductsPage = lazy(() => import("./Pages/ProductsPage"));
@@ -15,13 +17,15 @@ const LikedProPage = lazy(() => import("./Pages/LikedProPage"));
 const SingleProductPage = lazy(() => import("./Pages/SingleProductPage"));
 const AdminPage = lazy(() => import("./Pages/AdminPages/AdminPage"));
 const AdminLogin = lazy(() => import("./Pages/AdminPages/AdminLogin"));
+
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Suspense fallback={<Loding />}>
+        <Suspense fallback={<Loading />}>
           <MyContext>
-            <Navebar />
+            <Toaster />
+            <Navbar />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/products" element={<ProductsPage />} />

@@ -18,7 +18,7 @@ html {
   color: black;
   font-weight: bold;
 }
-.loder {
+.loader {
   background-image: conic-gradiEnt(black 300deg, white 300deg);
   animation: anim 3s infinite linear;
 }
