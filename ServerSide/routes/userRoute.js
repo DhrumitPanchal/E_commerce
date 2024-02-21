@@ -1,5 +1,9 @@
 const express = require("express");
-const { handleUserRegister: handleUserRegister, handleUserLogin: handleUserLogin } = require("../controllers/Auth");
+const {
+  getAllUsers,
+  handleUserRegister,
+  handleUserLogin,
+} = require("../controllers/Auth");
 const {
   getLikedProducts,
   addLikedProduct,
@@ -14,6 +18,7 @@ const Router = express.Router();
 Router.get("/auth", (req, res) => {
   res.json({ msg: "working" });
 });
+Router.get("/getallusers", getAllUsers);
 Router.post("/register", handleUserRegister);
 Router.post("/login", handleUserLogin);
 Router.get("/likedproducts", getLikedProducts);

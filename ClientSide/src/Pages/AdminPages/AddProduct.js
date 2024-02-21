@@ -38,8 +38,8 @@ function AddProduct() {
     }
   }, []);
   return (
-    <section className=" px-[8rem] pt-[2rem] pb-[2rem] h-[calc(100vh-3.5rem)] flex flex-col gap-[1.2rem]">
-      <h2 className="ml-[.2rem] text-[1.4rem] underline font-semibold">
+    <section className=" px-[8rem] max-sm:px-[1rem] pt-[2rem] max-sm:pt-[.8rem] pb-[2rem] h-[calc(100vh-3.5rem)] flex flex-col gap-[1.2rem]">
+      <h2 className="max-sm:text-end ml-[.2rem] text-[1.4rem] underline font-bold">
         {isForAdd ? "Add New Product" : "Update Product"}
       </h2>
 
@@ -97,7 +97,7 @@ function AddProduct() {
           </select>
         </div>
 
-        <div className="flex gap-[1rem]">
+        <div className="flex max-sm:flex-col gap-[1rem]">
           <input
             type="number"
             min={1}

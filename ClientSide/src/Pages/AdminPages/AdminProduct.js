@@ -8,23 +8,22 @@ function AdminProduct() {
   const { user, productData } = useContext(Context);
   return (
     <>
-      <nav className="px-[2rem] max-sm:px-[1rem] py-[1rem]  flex justify-between">
-        <div className="flex gap-[1.4rem]">
-          <input
-            placeholder="Search Product"
-            type="text"
-            className="px-[.8rem] h-[2.4rem] w-[25rem] border-[2px] rounded-[.4rem] text-[1.2rem] border-black/70 focus:border-black focus:border-[2.4px] placeholder:text-black/70"
-          />
-          <div className="cursor-pointer h-[2.4rem] w-[8rem] flex justify-center items-center gap-[.6rem] rounded-[.4rem] text-[1.1rem]  tracking-[1px] font-normal bg-black text-white">
-            <FaMagnifyingGlass className="text-[1rem] text-white " /> Search
-          </div>
-        </div>
-
-        <div className="cursor-pointer h-[2.4rem] w-[11rem] flex justify-center items-center gap-[.6rem] rounded-[.4rem] text-[1.1rem]  tracking-[1px] font-normal bg-black text-white">
+      <nav className="px-[2rem] max-sm:px-[1rem] py-[1rem]  flex justify-between flex-row-reverse max-sm:flex-col max-sm:gap-[1rem]">
+        <div className="self-end cursor-pointer h-[2.4rem] w-[11rem] flex  justify-center items-center gap-[.6rem] rounded-[.4rem] text-[1.1rem]  tracking-[1px] font-normal bg-black text-white">
           <FaPlus className="text-[1.2rem] text-white " />
           <Link to="add">
             <h2>Add Product</h2>
           </Link>
+        </div>
+        <div className="flex gap-[1rem]">
+          <input
+            placeholder="Search Product"
+            type="text"
+            className="px-[.8rem] h-[2.4rem] max-sm:w-full w-[25rem] border-[2px] rounded-[.4rem] text-[1.2rem] border-black/70 focus:border-black focus:border-[2.4px] placeholder:text-black/70"
+          />
+          <div className="cursor-pointer h-[2.4rem] w-[8rem] flex justify-center items-center gap-[.6rem] rounded-[.4rem] text-[1.1rem]  tracking-[1px] font-normal bg-black text-white">
+            <FaMagnifyingGlass className="text-[1rem] text-white " /> Search
+          </div>
         </div>
       </nav>
 

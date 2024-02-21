@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../Redux/Context";
 function RegisterPage() {
+  const { handelSignUp } = useContext(Context);
   const [formData, setFromData] = useState({
     name: "",
     email: "",
@@ -9,7 +11,6 @@ function RegisterPage() {
 
   const handleInput = (e) => {
     setFromData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
   };
   return (
     <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-white">
@@ -47,7 +48,10 @@ function RegisterPage() {
             placeholder="Password"
           />
 
-          <div className="cursor-pointer mt-[1rem] flex justify-center items-center h-[2.4rem] w-[8rem] rounded-[.8rem] text-[1.2rem] font-semibold  transition-colors duration-300 bg-blue-500/20 text-blue-700 hover:bg-[#6060e3] hover:text-white ">
+          <div
+            onClick={() => handelSignUp(formData)}
+            className="cursor-pointer mt-[1rem] flex justify-center items-center h-[2.4rem] w-[8rem] rounded-[.8rem] text-[1.2rem] font-semibold  transition-colors duration-300 bg-blue-500/20 text-blue-700 hover:bg-[#6060e3] hover:text-white "
+          >
             Register
           </div>
 

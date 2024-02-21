@@ -5,7 +5,8 @@ import { Context } from "../Redux/Context";
 function Cartcard(props) {
   const { ProductData, quantity } = props;
   const [productQuantity, setProductQuantity] = useState(null);
-  const { handleAddToCart, handleRemoveFromCart } = useContext(Context);
+  const { handleAddToCart, handleRemoveFromCart, handelSingleOrder } =
+    useContext(Context);
   useEffect(() => {
     setProductQuantity(quantity);
   }, []);
@@ -72,7 +73,16 @@ function Cartcard(props) {
           </div>
         </div>
         <div className="max-sm:ml-[2rem] mr-[2rem] flex gap-[2rem]">
-          <div className="cursor-pointer flex items-center px-[2rem] h-[2.6rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-green-600">
+          <div
+            onClick={() =>
+              handelSingleOrder(
+                ProductData?._id,
+                ProductData?.product_price,
+                productQuantity
+              )
+            }
+            className="cursor-pointer flex items-center px-[2rem] h-[2.6rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-green-600"
+          >
             Bay
           </div>
           <div

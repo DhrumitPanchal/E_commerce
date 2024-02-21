@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../Redux/Context";
 import CartCard from "../components/CartCard";
 function CartPage() {
-  const { user, productData } = useContext(Context);
+  const { user, productData, handelAllCartAddOrder } = useContext(Context);
 
   const [cartProduct, setCartProduct] = useState(null);
   const [total, setTotal] = useState(0);
@@ -43,7 +43,10 @@ function CartPage() {
         )}
 
         {cartProduct?.length > 0 && (
-          <div className="mt-[1rem] cursor-pointer h-[2.8rem] px-[2rem] flex gap-[2rem] rounded-[.6rem] items-center w-fit  bg-black">
+          <div
+            onClick={() => handelAllCartAddOrder()}
+            className="mt-[1rem] cursor-pointer h-[2.8rem] px-[2rem] flex gap-[2rem] rounded-[.6rem] items-center w-fit  bg-black"
+          >
             <div className="text-[1.3rem] font-semibold text-white">
               Total :
             </div>

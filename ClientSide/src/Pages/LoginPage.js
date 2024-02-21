@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Context } from "../Redux/Context";
 import { Link } from "react-router-dom";
 function LoginPage() {
+  const { handelSignIn } = useContext(Context);
   const [formData, setFromData] = useState({
     email: "",
     password: "",
@@ -39,7 +41,10 @@ function LoginPage() {
             placeholder="Password"
           />
 
-          <div className="cursor-pointer mt-[1rem] flex justify-center items-center h-[2.4rem] w-[8rem] rounded-[.8rem] text-[1.2rem] font-semibold  transition-colors duration-300 bg-blue-500/20 text-blue-700 hover:bg-[#6060e3] hover:text-white ">
+          <div
+            onClick={() => handelSignIn(formData)}
+            className="cursor-pointer mt-[1rem] flex justify-center items-center h-[2.4rem] w-[8rem] rounded-[.8rem] text-[1.2rem] font-semibold  transition-colors duration-300 bg-blue-500/20 text-blue-700 hover:bg-[#6060e3] hover:text-white "
+          >
             Login
           </div>
 

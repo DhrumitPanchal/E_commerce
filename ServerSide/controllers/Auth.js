@@ -1,5 +1,16 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcryptjs");
+
+async function getAllUsers(req, res) {
+  try {
+    const allUsers = await User.find();
+
+    res.status(201).json({ msg: "user register successfully", allUsers });
+  } catch (error) {
+    return res.status(500).json({ msg: "Internal server error" });
+  }
+}
+
 async function handleUserRegister(req, res) {
   const { name, email, password } = req.body;
   if (!name || !email || !password)
@@ -30,7 +41,7 @@ async function handleUserLogin(req, res) {
 
     const checkPassword = await bcrypt.compare(password, user.password);
     if (checkPassword) {
-      res.status(200).json({ msg: "login successfully" });
+      res.status(200).json({ msg: "login successfully", user });
     } else {
       res.status(401).json({ msg: "invalid credentials" });
     }
@@ -40,6 +51,7 @@ async function handleUserLogin(req, res) {
 }
 
 module.exports = {
-  handleUserRegister: handleUserRegister,
-  handleUserLogin: handleUserLogin,
+  handleUserRegister,
+  handleUserLogin,
+  getAllUsers,
 };

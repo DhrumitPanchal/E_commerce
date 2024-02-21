@@ -1,17 +1,16 @@
-import React, { lazy, Suspense, useContext, useEffect } from "react";
-import Data from "../components/Data";
+import React, { lazy, Suspense, useContext } from "react";
 import { Context } from "../Redux/Context";
 import Loading from "../components/Loading";
 
 const ProductCard = lazy(() => import("../components/ProductCard"));
 
 function HomePage() {
-  const { productData, getAllProducts } = useContext(Context);
+  const { productData } = useContext(Context);
   return (
     <>
       <section className="bg-red-100 h-[calc(100vh-3.5rem)] w-full">
         <img
-          src="https://img.freepik.com/premium-vector/online-shopping-background-illustrated-with-credit-card-3d-mobile-phone_269039-171.jpg?size=626&ext=jpg&ga=GA1.1.2119793234.1705506469&semt=ais"
+          src="https://img.freepik.com/free-psd/fashion-sale-social-media-cover-template_23-2149528650.jpg?w=1060&t=st=1707846743~exp=1707847343~hmac=019225adc743338536ec437eeb6c7fd82e549babfe6f39c964e09d6188076f36"
           alt=""
           className="w-full h-full"
         />
@@ -23,7 +22,7 @@ function HomePage() {
         </h2>
         {/* --------------- products -------------------------- */}
 
-        <div className=" mt-[3rem] flex justify-center flex-wrap gap-[3rem] ">
+        <div className=" mt-[3rem] flex justify-center flex-wrap gap-[3rem] max-sm:gap-[1rem] ">
           <Suspense fallback={<Loading />}>
             {productData?.map((e) => (
               <ProductCard key={e.productID} data={e} />

@@ -1,6 +1,5 @@
 //Context Hook
 import React, { createContext, useEffect, useState } from "react";
-import Data from "../components/Data";
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -10,13 +9,67 @@ export const Context = createContext(null);
 export default function MyContext(props) {
   const navigator = useNavigate();
   const [user, setUser] = useState({
-    name: "dhrumit panchal",
-    email: "dhrumit789@gmail.com",
+    userId: "",
+    name: "",
+    email: "",
     likedProducts: [],
     cartProducts: [],
   });
 
   const [productData, setProductData] = useState(null);
+  const [allOrders, setAllOrders] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
+
+  // sign up ---------------------------------------------------------
+
+  const handelSignUp = async ({ name, email, password }) => {
+    try {
+      const { data } = await axios.post("http://localhost:8000/register", {
+        name,
+        email,
+        password,
+      });
+
+      setUser({
+        ...user,
+        name: data.user.name,
+        email: data.user.email,
+        userId: data.user._id,
+      });
+
+      console.log("state data is : " + { ...user });
+      toast.success("sign up successfully");
+      navigator("/");
+    } catch (error) {
+      toast.error(error.response.data.msg);
+      console.log();
+    }
+  };
+
+  // sign in --------------------------------------------------------
+
+  const handelSignIn = async ({ email, password }) => {
+    try {
+      const { data } = await axios.post("http://localhost:8000/login", {
+        email,
+        password,
+      });
+
+      setUser({
+        name: data.user.name,
+        email: data.user.email,
+        userId: data.user._id,
+        likedProducts: data.user.likedProducts,
+        cartProducts: data.user.cartProducts,
+      });
+
+      toast.success("sign in successfully");
+      navigator("/");
+    } catch (error) {
+      toast.error(error.response.data.msg);
+      console.log();
+    }
+  };
 
   //  Add Liked Product -------------------------------------------------
   const handleLikedProducts = async (ProductId) => {
@@ -32,7 +85,7 @@ export default function MyContext(props) {
       });
       await axios
         .delete("http://localhost:8000/likedproducts", {
-          data: { id: "65bb8d7ecb4e551c48bd4bde", productId: ProductId },
+          data: { id: user.userId, productId: ProductId },
         })
         .then(() => {
           toast.success("Product removed from the ❤️");
@@ -45,14 +98,14 @@ export default function MyContext(props) {
       });
       await axios
         .post("http://localhost:8000/likedproducts", {
-          id: "65bb8d7ecb4e551c48bd4bde",
+          id: user.userId,
           productId: ProductId,
         })
         .then(() => {
           toast.success("Product Added to ❤️");
         })
         .catch((err) => {
-          toast(err.response.data.msg);
+          toast.error(err.response.data.msg);
           console.log();
         });
     }
@@ -74,16 +127,16 @@ export default function MyContext(props) {
       });
       await axios
         .put("http://localhost:8000/cartproducts", {
-          id: "65bb8d7ecb4e551c48bd4bde",
+          id: user.userId,
           productId: ProductId,
           Quantity: quantity,
           Prize: prize,
         })
         .then(() => {
-          toast.success("Product Added to ❤️");
+          toast.success("Product Added to cart");
         })
         .catch((err) => {
-          toast(err.response.data.msg);
+          toast.error(err.response.data.msg);
           console.log();
         });
     } else {
@@ -96,7 +149,7 @@ export default function MyContext(props) {
       });
       await axios
         .post("http://localhost:8000/cartproducts", {
-          id: "65bb8d7ecb4e551c48bd4bde",
+          id: user.userId,
           productId: ProductId,
           Quantity: quantity,
           Prize: prize,
@@ -105,7 +158,7 @@ export default function MyContext(props) {
           toast.success("Product Added to ❤️");
         })
         .catch((err) => {
-          toast(err.response.data.msg);
+          toast.error(err.response.data.msg);
           console.log();
         });
     }
@@ -125,13 +178,13 @@ export default function MyContext(props) {
       });
       await axios
         .delete("http://localhost:8000/cartproducts", {
-          data: { id: "65bb8d7ecb4e551c48bd4bde", productId: ProductId },
+          data: { id: user.userId, productId: ProductId },
         })
         .then(() => {
-          toast.success("Product Added to ❤️");
+          toast.success("Product Removed to from cart");
         })
         .catch((err) => {
-          toast(err.response.data.msg);
+          toast.error(err.response.data.msg);
           console.log();
         });
     }
@@ -139,9 +192,13 @@ export default function MyContext(props) {
 
   // get all products ---------------------------------------------
   const getAllProducts = async () => {
-    await axios.get("http://localhost:8000/Products").then((result) => {
-      setProductData(result.data.result);
-    });
+    try {
+      await axios.get("http://localhost:8000/Products").then((result) => {
+        setProductData(result.data.result);
+      });
+    } catch (error) {
+      toast.error(error.msg);
+    }
   };
 
   //  Add Product -------------------------------------------------
@@ -189,9 +246,68 @@ export default function MyContext(props) {
     }
   };
 
+  // get All orders --------------------------------------------
+
+  const handelGetallOrders = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:8000/orders");
+      setAllOrders(data.result);
+    } catch (error) {
+      toast.error(error.msg);
+    }
+  };
+
+  // add all cart order --------------------------------------------
+
+  const handelAllCartAddOrder = async () => {
+    try {
+      await axios.post("http://localhost:8000/orders", {
+        userID: user.userId,
+        orderData: user.cartProducts,
+      });
+
+      toast.success("order added successfully");
+    } catch (error) {
+      toast.error(error.msg);
+    }
+  };
+
+  // add single order -------------------------------------
+
+  const handelSingleOrder = async (id, prize, quantity) => {
+    try {
+      await axios.post("http://localhost:8000/orders", {
+        userID: user.userId,
+        orderData: [{ ProductID: id, Prize: prize, Quantity: quantity }],
+      });
+
+      toast.success("order added successfully");
+    } catch (error) {
+      toast.error(error.msg);
+    }
+    handelGetallOrders();
+  };
+
+  // get all users -----------------------------------------
+
+  const handelGetAllUsers = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:8000/getallusers");
+      setAllUsers(data.allUsers);
+    } catch (error) {
+      toast.error(error.msg);
+    }
+  };
+
   useEffect(() => {
     getAllProducts();
+    handelGetallOrders();
+    handelGetAllUsers();
   }, []);
+
+  useEffect(() => {
+    console.log("state " + user.name, user.userId, user.likedProducts);
+  }, [user]);
 
   return (
     <Context.Provider
@@ -199,14 +315,24 @@ export default function MyContext(props) {
         user,
         setUser,
         productData,
+        allOrders,
+        allUsers,
+        setAllUsers,
+        setAllOrders,
         setProductData,
         handleLikedProducts,
         handleAddToCart,
         handleRemoveFromCart,
         handelAddProduct,
+        handelSingleOrder,
         getAllProducts,
         handelDeleteProduct,
         handelUpdateProduct,
+        handelAllCartAddOrder,
+        handelGetallOrders,
+        handelGetAllUsers,
+        handelSignUp,
+        handelSignIn,
       }}
     >
       {props.children}
