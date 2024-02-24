@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../Redux/Context";
-import CartCard from "../components/CartCard";
+import CartPageCard from "../components/CartPageCard";
 function CartPage() {
   const { user, productData, handelAllCartAddOrder } = useContext(Context);
 
@@ -30,7 +30,7 @@ function CartPage() {
       <section className="px-[4rem] max-sm:px-[1rem] py-[2rem] min-h-[calc(100vh-3.5rem)] flex flex-col gap-[1.6rem]">
         {cartProduct?.length > 0 ? (
           cartProduct.map((data, index) => (
-            <CartCard
+            <CartPageCard
               key={index}
               ProductData={data}
               quantity={user.cartProducts[index]?.Quantity}
