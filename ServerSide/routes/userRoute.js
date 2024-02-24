@@ -14,6 +14,9 @@ const {
   updateCartProduct,
 } = require("../controllers/Userproducts");
 const Router = express.Router();
+Router.get("/", (req, res) => {
+  res.send("api running fine");
+});
 
 Router.get("/auth", (req, res) => {
   res.json({ msg: "working" });

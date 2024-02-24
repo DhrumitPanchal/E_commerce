@@ -20,11 +20,12 @@ export default function MyContext(props) {
   const [allOrders, setAllOrders] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
 
+  const BaseURL = process.env.REACT_APP_BACKENDURL;
   // sign up ---------------------------------------------------------
 
   const handelSignUp = async ({ name, email, password }) => {
     try {
-      const { data } = await axios.post("http://localhost:8000/register", {
+      const { data } = await axios.post(BaseURL + "/register", {
         name,
         email,
         password,
@@ -50,7 +51,7 @@ export default function MyContext(props) {
 
   const handelSignIn = async ({ email, password }) => {
     try {
-      const { data } = await axios.post("http://localhost:8000/login", {
+      const { data } = await axios.post(BaseURL + "/login", {
         email,
         password,
       });
@@ -84,7 +85,7 @@ export default function MyContext(props) {
         ),
       });
       await axios
-        .delete("http://localhost:8000/likedproducts", {
+        .delete(BaseURL + "/likedproducts", {
           data: { id: user.userId, productId: ProductId },
         })
         .then(() => {
@@ -97,7 +98,7 @@ export default function MyContext(props) {
         likedProducts: [...user.likedProducts, { ProductID: ProductId }],
       });
       await axios
-        .post("http://localhost:8000/likedproducts", {
+        .post(BaseURL + "/likedproducts", {
           id: user.userId,
           productId: ProductId,
         })
@@ -126,7 +127,7 @@ export default function MyContext(props) {
         cartProducts: items,
       });
       await axios
-        .put("http://localhost:8000/cartproducts", {
+        .put(BaseURL + "/cartproducts", {
           id: user.userId,
           productId: ProductId,
           Quantity: quantity,
@@ -148,7 +149,7 @@ export default function MyContext(props) {
         ],
       });
       await axios
-        .post("http://localhost:8000/cartproducts", {
+        .post(BaseURL + "/cartproducts", {
           id: user.userId,
           productId: ProductId,
           Quantity: quantity,
@@ -177,7 +178,7 @@ export default function MyContext(props) {
         ),
       });
       await axios
-        .delete("http://localhost:8000/cartproducts", {
+        .delete(BaseURL + "/cartproducts", {
           data: { id: user.userId, productId: ProductId },
         })
         .then(() => {
@@ -193,7 +194,7 @@ export default function MyContext(props) {
   // get all products ---------------------------------------------
   const getAllProducts = async () => {
     try {
-      await axios.get("http://localhost:8000/Products").then((result) => {
+      await axios.get(BaseURL + "/Products").then((result) => {
         setProductData(result.data.result);
       });
     } catch (error) {
@@ -205,7 +206,7 @@ export default function MyContext(props) {
 
   const handelAddProduct = async (Data) => {
     try {
-      await axios.post("http://localhost:8000/Products/add", Data);
+      await axios.post(BaseURL + "/Products/add", Data);
       toast.success("Product Added Successfully");
       navigator("/admin/products");
       getAllProducts();
@@ -218,7 +219,7 @@ export default function MyContext(props) {
 
   const handelUpdateProduct = async (productId, Data) => {
     try {
-      await axios.put("http://localhost:8000/Products/update", {
+      await axios.put(BaseURL + "/Products/update", {
         id: productId,
         data: { ...Data },
       });
@@ -234,10 +235,9 @@ export default function MyContext(props) {
 
   const handelDeleteProduct = async (productID) => {
     try {
-      const result = await axios.delete(
-        "http://localhost:8000/Products/delete",
-        { data: { id: productID } }
-      );
+      const result = await axios.delete(BaseURL + "/Products/delete", {
+        data: { id: productID },
+      });
       console.log(result);
       toast.success("Product deleted successfully");
       getAllProducts();
@@ -250,7 +250,7 @@ export default function MyContext(props) {
 
   const handelGetallOrders = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8000/orders");
+      const { data } = await axios.get(BaseURL + "/orders");
       setAllOrders(data.result);
     } catch (error) {
       toast.error(error.msg);
@@ -261,7 +261,7 @@ export default function MyContext(props) {
 
   const handelAllCartAddOrder = async () => {
     try {
-      await axios.post("http://localhost:8000/orders", {
+      await axios.post(BaseURL + "/orders", {
         userID: user.userId,
         orderData: user.cartProducts,
       });
@@ -276,7 +276,7 @@ export default function MyContext(props) {
 
   const handelSingleOrder = async (id, prize, quantity) => {
     try {
-      await axios.post("http://localhost:8000/orders", {
+      await axios.post(BaseURL + "/orders", {
         userID: user.userId,
         orderData: [{ ProductID: id, Prize: prize, Quantity: quantity }],
       });
@@ -292,7 +292,7 @@ export default function MyContext(props) {
 
   const handelGetAllUsers = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8000/getallusers");
+      const { data } = await axios.get(BaseURL + "/getallusers");
       setAllUsers(data.allUsers);
     } catch (error) {
       toast.error(error.msg);
