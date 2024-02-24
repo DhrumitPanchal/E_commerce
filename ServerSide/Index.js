@@ -16,8 +16,8 @@ try {
   app.listen(8000, () => console.log("Server is running"));
   mongoose
     .connect(
-      "mongodb://127.0.0.1:27017/Ecommerce"
-      // "mongodb+srv://dhrumitpanchal:30072004@cluster0.xwyudpn.mongodb.net/ecommerce?retryWrites=true&w=majority"
+      // "mongodb://127.0.0.1:27017/Ecommerce"
+      "mongodb+srv://dhrumitpanchal:30072004@cluster0.xwyudpn.mongodb.net/ecommerce?retryWrites=true&w=majority"
     )
     .then(() => console.log("mongoDB connected"));
 } catch (error) {

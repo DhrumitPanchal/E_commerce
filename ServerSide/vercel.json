@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "name": "E_commerce",
+  "builds": [{ "src": "Index.js", "use": "@vercel/node" }],
+  "routes": [{ "src": "/(.*)", "dest": "/Index.js" }]
+}
