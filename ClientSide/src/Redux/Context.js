@@ -193,7 +193,7 @@ export default function MyContext(props) {
   // get all products ---------------------------------------------
   const getAllProducts = async () => {
     try {
-      await axios.get(BaseURL + "/Products").then((result) => {
+      await axios.get(BaseURL + "/products").then((result) => {
         setProductData(result.data.result);
       });
     } catch (error) {
