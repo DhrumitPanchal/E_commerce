@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
-import { FaShoppingBag, FaHeart, FaUser } from "react-icons/fa";
+import { FaShoppingBag, FaHeart, FaUser, FaHome, FaBox } from "react-icons/fa";
 
 function Navbar() {
   const [isLogdin, setIsLogdin] = useState(true);
@@ -17,7 +17,7 @@ function Navbar() {
         <Link to="/" className="cursor-pointer text-[1.3rem] font-semibold">
           ShopNest
         </Link>
-        <ul className="max-sm:z-0 max-sm:absolute max-sm:top-0 max-sm:left-0 flex justify-between items-center gap-[1rem] max-sm:gap-[.2rem]">
+        <ul className="max-sm:hidden max-sm:z-0 max-sm:absolute max-sm:top-0 max-sm:left-0 flex justify-between items-center gap-[1rem] max-sm:gap-[.2rem]">
           <NavLink
             to="/"
             className="z-40 cursor-pointer px-[.8rem] py-[.4rem] font-medium transition-colors duration-300 text-black/70 hover:font-bold hover:text-black h-full "
@@ -31,7 +31,15 @@ function Navbar() {
             Products
           </NavLink>
         </ul>
-        <div className="flex items-center  gap-[.4rem] ">
+        <div className="flex items-center  gap-[.4rem] max-sm:gap-[.2rem]">
+          <Link className="z-40 max-sm:block hidden p-[.8rem] " to="/">
+            <FaHome className="cursor-pointer text-[1.6rem]" />
+          </Link>
+
+          <Link className="z-40  max-sm:block hidden p-[.8rem] " to="/products">
+            <FaBox className="cursor-pointer text-[1.6rem]" />
+          </Link>
+
           <Link className="z-40 p-[.8rem] " to="/Likedproducts">
             <FaHeart className="cursor-pointer text-[1.6rem]" />
           </Link>
