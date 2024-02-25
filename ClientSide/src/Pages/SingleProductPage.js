@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, lazy } from "react";
 import { FaPlus, FaMinus, FaHeart, FaRegHeart } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Context } from "../Redux/Context";
 const ProductCard = lazy(() => import("../components/ProductCard"));
 
@@ -34,6 +34,13 @@ function SingleProductPage() {
     setLiked((prevLiked) => !prevLiked);
     handleLikedProducts(productID);
   };
+
+  const navigator = useNavigate();
+  useEffect(() => {
+    if (user?.userId === "") {
+      navigator("/login");
+    }
+  });
   return (
     <>
       {product ? (

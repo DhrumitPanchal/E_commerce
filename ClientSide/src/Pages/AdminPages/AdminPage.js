@@ -1,6 +1,8 @@
 import React, { lazy, useState } from "react";
 import { FaArrowLeft, FaBars, FaTimes } from "react-icons/fa";
-
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Context } from "../../Redux/Context";
 import { Link, NavLink } from "react-router-dom";
 import AddProduct from "./AddProduct";
 const AdminOrder = lazy(() => import("./AdminOrder"));
@@ -9,6 +11,14 @@ const AdminGraph = lazy(() => import("./AdminGraph"));
 const AdminUser = lazy(() => import("./AdminUser"));
 function AdminPage({ Path }) {
   const [openMenu, setOpenMenu] = useState(false);
+
+  const { user } = useContext(Context);
+  const navigator = useNavigate();
+  useEffect(() => {
+    if (user?.userId === "") {
+      navigator("/login");
+    }
+  });
   return (
     <div className="relative flex w-screen h-screen overflow-x-hidden h-sc">
       <FaBars

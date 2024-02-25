@@ -1,10 +1,11 @@
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import ProductCard from "../components/ProductCard";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Context } from "../Redux/Context";
+import { useNavigate } from "react-router-dom";
 function ProductsPage() {
   const [priceRange, setPriceRange] = useState(250); // Initial value of 50
-  const { productData } = useContext(Context);
+  const { user, productData } = useContext(Context);
   const [filterIsActive, setFilterIsActive] = useState(false);
   const [filtProducts, setFiltProducts] = useState([]);
   const [search, setSearch] = useState("");
@@ -53,6 +54,13 @@ function ProductsPage() {
 
     setFiltProducts(result);
   };
+
+  const navigator = useNavigate();
+  useEffect(() => {
+    if (user?.userId === "") {
+      navigator("/login");
+    }
+  });
   return (
     <>
       <section className="px-[2rem] max-sm:px-[1rem] py-[1rem]  flex gap-[1.4rem]">

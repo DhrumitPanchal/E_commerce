@@ -1,11 +1,18 @@
-import React, { lazy, Suspense, useContext } from "react";
+import React, { lazy, Suspense, useContext, useEffect } from "react";
 import { Context } from "../Redux/Context";
 import Loading from "../components/Loading";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = lazy(() => import("../components/ProductCard"));
 
 function HomePage() {
-  const { productData } = useContext(Context);
+  const { user, productData } = useContext(Context);
+const navigator = useNavigate();
+  useEffect(() => {
+    if (user?.userId === "") {
+      navigator("/login");
+    }
+  });
   return (
     <>
       <section className="bg-red-100 h-[calc(100vh-3.5rem)] w-full">

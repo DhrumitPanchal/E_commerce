@@ -5,14 +5,13 @@ import { Context } from "../Redux/Context";
 function ProductCard(props) {
   const {
     user,
-
     handleLikedProducts,
   } = useContext(Context);
   const data = props.data;
   const [liked, setLiked] = useState(false);
   const cardRef = useRef(null);
 
-  // const navigator = useNavigate();
+  const navigator = useNavigate();
   // useEffect(() => {
   //   function handleClickOutside(event) {
   //     if (cardRef.current && event.target !== cardRef.current) {
@@ -27,11 +26,11 @@ function ProductCard(props) {
   //   };
   // }, [navigator, data?._id]);
 
-  // const handleLikeClick = (event) => {
-  //   event.stopPropagation();
-  //   setLiked(!liked);
-  //   handleLikedProducts(data?._id);
-  // };
+  const handleLikeClick = (event) => {
+    event.stopPropagation();
+    setLiked(!liked);
+    handleLikedProducts(data?._id);
+  };
   useEffect(() => {
     const checkIsLiked = user?.likedProducts.some(
       (item) => item.productId === data?._id
@@ -61,7 +60,7 @@ function ProductCard(props) {
                 {data?.product_name}
               </p>
             </div>
-            {/* <div
+            <div
               onClick={handleLikeClick}
               className="z-10 mt-[.2rem] h-fit p-[.7rem] max-sm:p-[.4rem]"
             >
@@ -70,7 +69,7 @@ function ProductCard(props) {
               ) : (
                 <FaRegHeart className="text-[1.3rem] " />
               )}
-            </div> */}
+            </div>
           </div>
           <div className="flex gap-[1rem]">
             {data?.discount_rate && (

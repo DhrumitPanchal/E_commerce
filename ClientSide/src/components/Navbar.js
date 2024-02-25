@@ -8,6 +8,9 @@ function Navbar() {
   let { pathname } = useLocation();
   let isAdminPath = pathname.slice(1, 6);
   if (isAdminPath === "admin") return;
+  if (isAdminPath === "login") return;
+  isAdminPath = pathname.slice(1, 9);
+  if (isAdminPath === "register") return;
   return (
     <>
       <nav className="relative z-50 px-[2.4rem] h-[3.5rem] max-sm:px-[1rem] flex justify-between items-center border-b-[1px] border-black bg-white">

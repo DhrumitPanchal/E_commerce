@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { Context } from "../Redux/Context";
+import { useNavigate } from "react-router-dom";
 function LikedProPage() {
   const { user, productData } = useContext(Context);
 
@@ -15,6 +16,13 @@ function LikedProPage() {
     );
     setLikedProduct(filteredProducts);
   }, [user, productData]);
+
+  const navigator = useNavigate();
+  useEffect(() => {
+    if (user?.userId === "") {
+      navigator("/login");
+    }
+  });
   return (
     <div className="mt-[2rem] mb-[4rem] px-[3rem] flex flex-wrap max-sm:justify-between min-h-[calc(100vh-3.5rem)] w-full gap-[3rem] max-sm:gap-[1rem]">
       {likedProduct?.length > 0 ? (
