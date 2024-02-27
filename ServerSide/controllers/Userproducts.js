@@ -25,7 +25,7 @@ async function getLikedProducts(req, res) {
 
 async function addLikedProduct(req, res) {
   const { id, productId } = req.body;
-
+  console.log(id, productId);
   if (!id || !productId) {
     return res.status(401).json({ msg: "undefined user id and product id" });
   }

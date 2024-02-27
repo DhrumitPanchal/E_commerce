@@ -73,8 +73,7 @@ export default function MyContext(props) {
       toast.success("sign in successfully");
       navigator("/");
     } catch (error) {
-      toast.error(error.response.data.msg);
-      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
