@@ -26,11 +26,7 @@ function CartPage() {
     setTotal(allproTotal);
   }, [cartProduct, user.cartProducts]);
   const navigator = useNavigate();
-  useEffect(() => {
-    if (user?.userId === "") {
-      navigator("/login");
-    }
-  });
+
   return (
     <>
       <section className="px-[4rem] max-sm:px-[1rem] py-[2rem] min-h-[calc(100vh-3.5rem)] flex flex-col gap-[1.6rem]">

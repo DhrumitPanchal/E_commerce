@@ -16,7 +16,7 @@ async function getAllOrders(req, res) {
 
 async function addOrder(req, res) {
   const { userID, orderData } = req.body;
-
+  console.log(userID, orderData);
   if (!userID || !orderData) {
     return res.json({ msg: "all product details is required" });
   }

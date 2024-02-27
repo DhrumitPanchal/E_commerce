@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../../Redux/Context";
 import OrderCard from "../../components/AdminComponent/OrderCard";
 function AdminOrder() {
-  const { user, productData, allOrders, setAllOrders } = useContext(Context);
+  const { user, allOrders, setAllOrders } = useContext(Context);
+
   useEffect(() => {
     setAllOrders(allOrders);
   }, [allOrders]);

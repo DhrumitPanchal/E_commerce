@@ -14,11 +14,10 @@ function AdminPage({ Path }) {
 
   const { user } = useContext(Context);
   const navigator = useNavigate();
-  useEffect(() => {
-    if (user?.userId === "") {
-      navigator("/login");
-    }
-  });
+  if (user.userRole !== "admin") {
+    navigator("/");
+    // alert("you are not have access of admin panel");
+  }
   return (
     <div className="relative flex w-screen h-screen overflow-x-hidden h-sc">
       <FaBars

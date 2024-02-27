@@ -18,13 +18,9 @@ function LikedProPage() {
   }, [user, productData]);
 
   const navigator = useNavigate();
-  useEffect(() => {
-    if (user?.userId === "") {
-      navigator("/login");
-    }
-  });
+ 
   return (
-    <div className="mt-[2rem] mb-[4rem] px-[3rem] flex flex-wrap max-sm:justify-between min-h-[calc(100vh-3.5rem)] w-full gap-[3rem] max-sm:gap-[1rem]">
+    <div className="mt-[2rem] mb-[4rem] px-[3rem] max-sm:px-[1rem] flex flex-wrap max-sm:justify-between min-h-[calc(100vh-3.5rem)] w-full gap-[3rem] max-sm:gap-[1rem]">
       {likedProduct?.length > 0 ? (
         likedProduct?.map((product) => (
           <ProductCard key={product?.id} data={product} />

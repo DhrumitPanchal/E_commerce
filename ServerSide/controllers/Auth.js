@@ -1,6 +1,6 @@
 const User = require("../models/UserModel");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
 async function getAllUsers(req, res) {
   try {
     const allUsers = await User.find();
@@ -41,7 +41,16 @@ async function handleUserLogin(req, res) {
 
     const checkPassword = await bcrypt.compare(password, user.password);
     if (checkPassword) {
-      res.status(200).json({ msg: "login successfully", user });
+      const Payload = {
+        ...user,
+      };
+      const token = await jwt.sign(Payload, process.env.jwtSecretKey);
+      const newObject = {
+        access_Token: token,
+        msg: "login successfully",
+        user: user,
+      };
+      res.status(200).json(newObject);
     } else {
       res.status(401).json({ msg: "invalid credentials" });
     }
@@ -50,8 +59,20 @@ async function handleUserLogin(req, res) {
   }
 }
 
+async function handelJwtTokenBasedLogin(req, res) {
+  const { access_Token } = req.body;
+  if (access_Token) {
+    const result = await jwt.verify(access_Token, process.env.jwtSecretKey);
+    if (result) {
+      return res.status(200).json(result._doc);
+    } else {
+      return res.status(403).json("Invalid Token");
+    }
+  }
+}
 module.exports = {
   handleUserRegister,
   handleUserLogin,
   getAllUsers,
+  handelJwtTokenBasedLogin,
 };

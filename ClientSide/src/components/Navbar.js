@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { FaShoppingBag, FaHeart, FaUser, FaHome, FaBox } from "react-icons/fa";
-
+import Cookies from "js-cookie";
 function Navbar() {
   const [isLogdin, setIsLogdin] = useState(true);
   const [menu, setMenu] = useState(false);
+  const navigator = useNavigate();
   let { pathname } = useLocation();
   let isAdminPath = pathname.slice(1, 6);
   if (isAdminPath === "admin") return;
   if (isAdminPath === "login") return;
   isAdminPath = pathname.slice(1, 9);
   if (isAdminPath === "register") return;
+
+  function logout() {
+    Cookies.remove("accessToken");
+    setMenu(!menu);
+    return navigator("/login");
+  }
   return (
     <>
       <nav className="relative z-50 px-[2.4rem] h-[3.5rem] max-sm:px-[1rem] flex justify-between items-center border-b-[1px] border-black bg-white">
@@ -65,7 +72,7 @@ function Navbar() {
       </nav>
 
       {menu && (
-        <div className="z-40 px-[1rem] py-[.8rem] absolute top-[3.4rem] right-[2.4rem] rounded-[.4rem]  w-[10rem] text-[1.2rem] before:content-[''] before:absolute before:-top-[.5rem] before:right-[1rem] before:z-10  before:h-[1rem] before:rotate-[-45deg] before:w-[1rem] before:bg-white font-medium text-black/50 bg-white shadow-[0px_1.2px_3px_1px_rgba(0,0,0,0.4)] before:shadow-[1px_-1px_.8px_.1px_rgba(0,0,0,0.2)]">
+        <div className="z-50 px-[1rem] py-[.8rem] absolute top-[3.4rem] right-[2.4rem] rounded-[.4rem]  w-[10rem] text-[1.2rem] before:content-[''] before:absolute before:-top-[.5rem] before:right-[1rem] before:z-10  before:h-[1rem] before:rotate-[-45deg] before:w-[1rem] before:bg-white font-medium text-black/50 bg-white shadow-[0px_1.2px_3px_1px_rgba(0,0,0,0.4)] before:shadow-[1px_-1px_.8px_.1px_rgba(0,0,0,0.2)]">
           <Link to="profile">
             <h2
               onClick={() => setMenu(!menu)}
@@ -84,7 +91,7 @@ function Navbar() {
           </Link>
           <Link>
             <h2
-              onClick={() => setMenu(!menu)}
+              onClick={() => logout()}
               className="w-full text-black transition-colors duration-300 "
             >
               Log Out

@@ -56,11 +56,7 @@ function ProductsPage() {
   };
 
   const navigator = useNavigate();
-  useEffect(() => {
-    if (user?.userId === "") {
-      navigator("/login");
-    }
-  });
+
   return (
     <>
       <section className="px-[2rem] max-sm:px-[1rem] py-[1rem]  flex gap-[1.4rem]">

@@ -10,7 +10,6 @@ function LoginPage() {
 
   const handleInput = (e) => {
     setFromData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
   };
   return (
     <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-white">

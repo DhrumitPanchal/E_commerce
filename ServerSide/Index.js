@@ -4,9 +4,12 @@ const cors = require("cors");
 const UserRouter = require("./routes/userRoute");
 const ProductRouter = require("./routes/ProductRoute");
 const OrderRouter = require("./routes/OrderRoute");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const app = express();
 app.use(cors());
+app.use(cookieParser());
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/", UserRouter);
@@ -21,4 +24,3 @@ try {
 } catch (error) {
   console.log(error);
 }
-// "mongodb://127.0.0.1:27017/Ecommerce"

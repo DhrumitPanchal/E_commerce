@@ -36,11 +36,7 @@ function SingleProductPage() {
   };
 
   const navigator = useNavigate();
-  useEffect(() => {
-    if (user?.userId === "") {
-      navigator("/login");
-    }
-  });
+
   return (
     <>
       {product ? (

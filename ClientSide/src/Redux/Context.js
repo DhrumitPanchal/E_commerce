@@ -1,7 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export const Context = createContext(null);
 
@@ -13,8 +14,10 @@ export default function MyContext(props) {
     email: "",
     likedProducts: [],
     cartProducts: [],
+    userRole: "",
   });
 
+  const [accessToken, setAccessToken] = useState(null);
   const [productData, setProductData] = useState(null);
   const [allOrders, setAllOrders] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
@@ -35,6 +38,7 @@ export default function MyContext(props) {
         name: data.user.name,
         email: data.user.email,
         userId: data.user._id,
+        userRole: data.userRole,
       });
 
       console.log("state data is : " + { ...user });
@@ -61,14 +65,40 @@ export default function MyContext(props) {
         userId: data.user._id,
         likedProducts: data.user.likedProducts,
         cartProducts: data.user.cartProducts,
+        userRole: data.userRole,
       });
 
+      setAccessToken(data.access_Token);
+      Cookies.set("accessToken", data.access_Token);
       toast.success("sign in successfully");
       navigator("/");
     } catch (error) {
       toast.error(error.response.data.msg);
-      console.log();
+      console.log(error);
     }
+  };
+
+  // login with jwt ---------------------------------------------------
+
+  const handelJwtLogin = async () => {
+    const token = Cookies.get("accessToken");
+    try {
+      if (token) {
+        const { data } = await axios.post(BaseURL + "/jwtlogin", {
+          access_Token: token,
+        });
+        setUser({
+          name: data.name,
+          email: data.email,
+          userId: data._id,
+          likedProducts: data.likedProducts,
+          cartProducts: data.cartProducts,
+          userRole: data.userRole,
+        });
+      } else {
+        navigator("/login");
+      }
+    } catch (error) {}
   };
 
   //  Add Liked Product -------------------------------------------------
@@ -305,8 +335,8 @@ export default function MyContext(props) {
   }, []);
 
   useEffect(() => {
-    console.log("state " + user.name, user.userId, user.likedProducts);
-  }, [user]);
+    handelJwtLogin();
+  }, []);
 
   return (
     <Context.Provider
