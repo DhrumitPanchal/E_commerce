@@ -69,7 +69,7 @@ export default function MyContext(props) {
       });
 
       setAccessToken(data.access_Token);
-      Cookies.set("accessToken", data.access_Token);
+      Cookies.set("accessToken", data.access_Token, { expires: 365 });
       toast.success("sign in successfully");
       navigator("/");
     } catch (error) {
@@ -184,7 +184,7 @@ export default function MyContext(props) {
           Prize: prize,
         })
         .then(() => {
-          toast.success("Product Added to ❤️");
+          toast.success("Product Added to Cart");
         })
         .catch((err) => {
           toast.error(err.response.data.msg);
@@ -331,12 +331,12 @@ export default function MyContext(props) {
     getAllProducts();
     handelGetallOrders();
     handelGetAllUsers();
-  }, []);
-
-  useEffect(() => {
     handelJwtLogin();
   }, []);
 
+  useEffect(() => {
+    console.log(user.likedProducts);
+  }, [user]);
   return (
     <Context.Provider
       value={{

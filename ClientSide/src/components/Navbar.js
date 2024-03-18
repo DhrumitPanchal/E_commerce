@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import { FaShoppingBag, FaHeart, FaUser, FaHome, FaBox } from "react-icons/fa";
 import Cookies from "js-cookie";
+import { Context } from "../Redux/Context";
 function Navbar() {
+  const { user, handleLikedProducts, productData } = useContext(Context);
   const [isLogdin, setIsLogdin] = useState(true);
   const [menu, setMenu] = useState(false);
   const navigator = useNavigate();
@@ -81,14 +83,16 @@ function Navbar() {
               Profile
             </h2>
           </Link>
-          <Link to="admin/order">
-            <h2
-              onClick={() => setMenu(!menu)}
-              className="w-full text-black transition-colors duration-300 "
-            >
-              Admin
-            </h2>
-          </Link>
+          {user.userRole === "admin" && (
+            <Link to="admin/order">
+              <h2
+                onClick={() => setMenu(!menu)}
+                className="w-full text-black transition-colors duration-300 "
+              >
+                Admin
+              </h2>
+            </Link>
+          )}
           <Link>
             <h2
               onClick={() => logout()}

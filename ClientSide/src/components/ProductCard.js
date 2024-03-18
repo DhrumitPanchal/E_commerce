@@ -3,28 +3,26 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useEffect, useState, useContext, useRef } from "react";
 import { Context } from "../Redux/Context";
 function ProductCard(props) {
-  const {
-    user,
-    handleLikedProducts,
-  } = useContext(Context);
+  const { user, handleLikedProducts, likesPro, setLikesPro } =
+    useContext(Context);
   const data = props.data;
   const [liked, setLiked] = useState(false);
   const cardRef = useRef(null);
 
   const navigator = useNavigate();
-  // useEffect(() => {
-  //   function handleClickOutside(event) {
-  //     if (cardRef.current && event.target !== cardRef.current) {
-  //       return;
-  //     }
-  //     navigator(`/products/${data?._id}`);
-  //   }
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (cardRef.current && event.target !== cardRef.current) {
+        return;
+      }
+      navigator(`/products/${data?._id}`);
+    }
 
-  //   document.addEventListener("click", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("click", handleClickOutside);
-  //   };
-  // }, [navigator, data?._id]);
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [navigator, data?._id]);
 
   const handleLikeClick = (event) => {
     event.stopPropagation();
@@ -33,10 +31,13 @@ function ProductCard(props) {
   };
   useEffect(() => {
     const checkIsLiked = user?.likedProducts.some(
-      (item) => item.productId === data?._id
+      (item) => item?.productId === data?._id
     );
-    checkIsLiked && setLiked(true);
-  }, [user?.likedProducts, data, user]);
+
+    if (checkIsLiked) {
+      setLiked(true);
+    }
+  }, [user.likedProducts, data, user, liked]);
 
   return (
     <>

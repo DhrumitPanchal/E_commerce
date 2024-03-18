@@ -21,21 +21,19 @@ function SingleProductPage() {
   useEffect(() => {
     const Product = productData?.filter((item) => item?._id === productID);
     Product && setProduct(Product[0]);
-  });
+  }, [productData, productID]);
   useEffect(() => {
     const IsLiked = user?.likedProducts?.some(
-      (likedProduct) => likedProduct?.ProductID === productID
+      (likedProduct) => likedProduct?.productId === productID
     );
 
     setLiked(IsLiked);
-  }, [user?.likedProducts, productID, productData]);
+  }, [user?.likedProducts, user, productID, productData]);
 
   const toggleLiked = () => {
     setLiked((prevLiked) => !prevLiked);
     handleLikedProducts(productID);
   };
-
-  const navigator = useNavigate();
 
   return (
     <>

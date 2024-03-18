@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../Redux/Context";
 import CartPageCard from "../components/CartPageCard";
-import { useNavigate } from "react-router-dom";
 function CartPage() {
   const { user, productData, handelAllCartAddOrder } = useContext(Context);
 
@@ -25,7 +24,6 @@ function CartPage() {
       });
     setTotal(allproTotal);
   }, [cartProduct, user.cartProducts]);
-  const navigator = useNavigate();
 
   return (
     <>

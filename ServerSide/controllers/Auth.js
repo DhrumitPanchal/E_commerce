@@ -64,7 +64,8 @@ async function handelJwtTokenBasedLogin(req, res) {
   if (access_Token) {
     const result = await jwt.verify(access_Token, process.env.jwtSecretKey);
     if (result) {
-      return res.status(200).json(result._doc);
+      const user = await User.findById(result._doc._id);
+      return res.status(200).json(user);
     } else {
       return res.status(403).json("Invalid Token");
     }

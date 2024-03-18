@@ -54,7 +54,6 @@ async function AddProduct(req, res) {
 
 async function UpdateProduct(req, res) {
   const { id, data } = req.body;
-  console.log(id, data);
   if (!id || !data) return res.json({ msg: "product id and data is required" });
   try {
     const findProduct = await Product.findById(id);
