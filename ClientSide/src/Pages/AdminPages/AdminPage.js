@@ -14,7 +14,11 @@ function AdminPage({ Path }) {
 
   const { user } = useContext(Context);
   const navigator = useNavigate();
- 
+
+  useEffect(() => {
+    user?.userRole !== "admin" && navigator("/admin");
+  });
+
   return (
     <div className="relative flex w-screen h-screen overflow-x-hidden h-sc">
       <FaBars

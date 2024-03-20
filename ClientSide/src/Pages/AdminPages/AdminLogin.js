@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import { Context } from "../../Redux/Context";
 function AdminLogin() {
+  const { handelAdminAccess } = useContext(Context);
+
   const [formData, setFromData] = useState({
     email: "",
     password: "",
@@ -8,7 +10,6 @@ function AdminLogin() {
 
   const handleInput = (e) => {
     setFromData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData);
   };
   return (
     <section className="flex items-center justify-center w-full h-screen select-none ">
@@ -17,7 +18,7 @@ function AdminLogin() {
           Admin Authorization
         </h2>
 
-        <form className="mt-[2rem] flex flex-col gap-[1.2rem]">
+        <div className="mt-[2rem] flex flex-col gap-[1.2rem]">
           <input
             name="email"
             onChange={(e) => handleInput(e)}
@@ -38,12 +39,12 @@ function AdminLogin() {
           />
 
           <button
-            type="submit"
+            onClick={() => handelAdminAccess(formData.email, formData.password)}
             className="cursor-pointer mt-[1rem] flex justify-center items-center h-[2.4rem] w-[8rem] rounded-[.3rem] text-[1.2rem] font-bold  transition-colors duration-300 bg-white/60 text-black hover:bg-white"
           >
             Login
           </button>
-        </form>
+        </div>
       </div>
     </section>
   );

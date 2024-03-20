@@ -22,6 +22,7 @@ function SingleProductPage() {
     const Product = productData?.filter((item) => item?._id === productID);
     Product && setProduct(Product[0]);
   }, [productData, productID]);
+
   useEffect(() => {
     const IsLiked = user?.likedProducts?.some(
       (likedProduct) => likedProduct?.productId === productID

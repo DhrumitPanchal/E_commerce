@@ -26,8 +26,8 @@ function HomePage() {
 
         <div className=" mt-[3rem] flex justify-center flex-wrap gap-[3rem] max-sm:gap-[1rem] ">
           <Suspense fallback={<Loading />}>
-            {productData?.map((e) => (
-              <ProductCard key={e.productID} data={e} />
+            {productData?.map((e, index) => (
+              <ProductCard key={index} data={e} />
             ))}
           </Suspense>
         </div>

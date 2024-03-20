@@ -25,7 +25,6 @@ async function getLikedProducts(req, res) {
 
 async function addLikedProduct(req, res) {
   const { id, productId } = req.body;
-  console.log(id, productId);
   if (!id || !productId) {
     return res.status(401).json({ msg: "undefined user id and product id" });
   }
@@ -41,6 +40,13 @@ async function addLikedProduct(req, res) {
     const findUser = await User.findById(id).catch((err) => {
       return res.status(400).json({ msg: "user not found" });
     });
+    // If product already liked in the user's likedProducts then show error
+    const isProductAlreadyLiked = findUser.likedProducts.find(
+      (item) => item.productId === productId
+    );
+    if (isProductAlreadyLiked) {
+      return res.status(400).json({ msg: "product already liked" });
+    }
 
     await User.findByIdAndUpdate(id, {
       likedProducts: [...findUser.likedProducts, { productId }],

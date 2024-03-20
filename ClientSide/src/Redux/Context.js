@@ -101,20 +101,20 @@ export default function MyContext(props) {
   };
 
   //  Add Liked Product -------------------------------------------------
-  const handleLikedProducts = async (ProductId) => {
+  const handleLikedProducts = async (productId) => {
     let checkIsLiked = user.likedProducts.some(
-      (product) => product.ProductID === ProductId
+      (product) => product.productId === productId
     );
     if (checkIsLiked) {
       setUser({
         ...user,
         likedProducts: user.likedProducts.filter(
-          (item) => item.ProductID !== ProductId
+          (item) => item.productId !== productId
         ),
       });
       await axios
         .delete(BaseURL + "/likedproducts", {
-          data: { id: user.userId, productId: ProductId },
+          data: { id: user.userId, productId: productId },
         })
         .then(() => {
           toast.success("Product removed from the ❤️");
@@ -123,12 +123,13 @@ export default function MyContext(props) {
     } else {
       setUser({
         ...user,
-        likedProducts: [...user.likedProducts, { ProductID: ProductId }],
+        likedProducts: [...user.likedProducts, { productId: productId }],
       });
+
       await axios
         .post(BaseURL + "/likedproducts", {
           id: user.userId,
-          productId: ProductId,
+          productId: productId,
         })
         .then(() => {
           toast.success("Product Added to ❤️");
@@ -218,7 +219,6 @@ export default function MyContext(props) {
         });
     }
   };
-
   // get all products ---------------------------------------------
   const getAllProducts = async () => {
     try {
@@ -261,10 +261,10 @@ export default function MyContext(props) {
 
   // Delete Product --------------------------------------------------
 
-  const handelDeleteProduct = async (productID) => {
+  const handelDeleteProduct = async (productId) => {
     try {
       const result = await axios.delete(BaseURL + "/Products/delete", {
-        data: { id: productID },
+        data: { id: productId },
       });
       console.log(result);
       toast.success("Product deleted successfully");
@@ -306,7 +306,7 @@ export default function MyContext(props) {
     try {
       await axios.post(BaseURL + "/orders", {
         userID: user.userId,
-        orderData: [{ ProductID: id, Prize: prize, Quantity: quantity }],
+        orderData: [{ productId: id, Prize: prize, Quantity: quantity }],
       });
 
       toast.success("order added successfully");
@@ -327,6 +327,22 @@ export default function MyContext(props) {
     }
   };
 
+  // admin access using email and password ----------------------
+
+  const handelAdminAccess = async (email, password) => {
+    try {
+      const { data } = await axios.post(BaseURL + "/adminlogin", {
+        email: email,
+        password: password,
+      });
+      console.log(data.role);
+      setUser({ ...user, userRole: data.role });
+      navigator("/admin/products");
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
+
   useEffect(() => {
     getAllProducts();
     handelGetallOrders();
@@ -334,9 +350,6 @@ export default function MyContext(props) {
     handelJwtLogin();
   }, []);
 
-  useEffect(() => {
-    console.log(user.likedProducts);
-  }, [user]);
   return (
     <Context.Provider
       value={{
@@ -346,6 +359,7 @@ export default function MyContext(props) {
         allOrders,
         allUsers,
         setAllUsers,
+        handelAdminAccess,
         setAllOrders,
         setProductData,
         handleLikedProducts,

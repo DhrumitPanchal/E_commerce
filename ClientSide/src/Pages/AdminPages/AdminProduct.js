@@ -2,10 +2,16 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaMagnifyingGlass, FaPlus } from "react-icons/fa6";
 import ProductCard from "../../components/AdminComponent/ProductCard";
 import { Context } from "../../Redux/Context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 function AdminProduct() {
   const { user, productData } = useContext(Context);
+
+  const navigator = useNavigate();
+
+  useEffect(() => {
+    user?.userRole !== "admin" && navigator("/admin");
+  });
   return (
     <>
       <nav className="px-[2rem] max-sm:px-[1rem] py-[1rem]  flex justify-between flex-row-reverse max-sm:flex-col max-sm:gap-[1rem]">

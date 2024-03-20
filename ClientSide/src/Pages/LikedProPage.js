@@ -5,16 +5,25 @@ function LikedProPage() {
   const { user, handleLikedProducts, productData } = useContext(Context);
   const [likedProduct, setLikedProduct] = useState(null);
 
+  // useEffect(() => {
+  //   if (!productData || !user?.likedProducts) return;
+
+  //   const filteredProducts = productData.filter((product) =>
+  //     user.likedProducts.some(
+  //       (likedProduct) => likedProduct.productId === product?._id
+  //     )
+  //   );
+  //   setLikedProduct(filteredProducts);
+  // }, [user, user.likedProducts]);
+
   useEffect(() => {
     if (!productData || !user?.likedProducts) return;
 
     const filteredProducts = productData.filter((product) =>
-      user.likedProducts.some(
-        (likedProduct) => likedProduct.productId === product?._id
-      )
+      user.likedProducts.some((item) => item.productId === product?._id)
     );
     setLikedProduct(filteredProducts);
-  }, [user, user.likedProducts]);
+  }, [user, user.likedProducts, productData]);
 
   return (
     <div className="mt-[2rem] mb-[4rem] px-[3rem] max-sm:px-[1rem] flex flex-wrap max-sm:justify-between min-h-[calc(100vh-3.5rem)] w-full gap-[3rem] max-sm:gap-[1rem]">

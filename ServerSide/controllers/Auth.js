@@ -71,9 +71,42 @@ async function handelJwtTokenBasedLogin(req, res) {
     }
   }
 }
+
+async function handelAdminAccess(req, res) {
+  const { email, password } = req.body;
+  console.log(email, password);
+  if (!email || !password)
+    return res.status(404).json({ msg: "email and password are required" });
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ msg: "incorrect credential" });
+    }
+
+    if (user.userRole === "admin") {
+      const checkPassword = await bcrypt.compare(password, user.password);
+
+      if (!checkPassword) {
+        return res.status(404).json({ msg: "incorrect credential" });
+      }
+
+      return res
+        .status(200)
+        .json({ msg: "login success as admin", role: user.userRole });
+    }
+    
+    return res.status(404).json({ msg: "incorrect credential" });
+  } catch (error) {
+    return res.status(500).json({ msg: "Internal server error" });
+  }
+}
+
 module.exports = {
   handleUserRegister,
   handleUserLogin,
   getAllUsers,
   handelJwtTokenBasedLogin,
+  handelAdminAccess,
 };

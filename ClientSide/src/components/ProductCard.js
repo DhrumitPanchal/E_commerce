@@ -10,19 +10,19 @@ function ProductCard(props) {
   const cardRef = useRef(null);
 
   const navigator = useNavigate();
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (cardRef.current && event.target !== cardRef.current) {
-        return;
-      }
-      navigator(`/products/${data?._id}`);
-    }
+  // useEffect(() => {
+  //   function handleClickOutside(event) {
+  //     if (cardRef.current && event.target !== cardRef.current) {
+  //       return;
+  //     }
+  //     navigator(`/products/${data?._id}`);
+  //   }
 
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [navigator, data?._id]);
+  //   document.addEventListener("click", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("click", handleClickOutside);
+  //   };
+  // }, [navigator, data?._id]);
 
   const handleLikeClick = (event) => {
     event.stopPropagation();

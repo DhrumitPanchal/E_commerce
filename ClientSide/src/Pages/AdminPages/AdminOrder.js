@@ -1,9 +1,14 @@
 import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../../Redux/Context";
 import OrderCard from "../../components/AdminComponent/OrderCard";
 function AdminOrder() {
   const { user, allOrders, setAllOrders } = useContext(Context);
+  const navigator = useNavigate();
 
+  useEffect(() => {
+    user?.userRole !== "admin" && navigator("/admin");
+  });
   useEffect(() => {
     setAllOrders(allOrders);
   }, [allOrders]);

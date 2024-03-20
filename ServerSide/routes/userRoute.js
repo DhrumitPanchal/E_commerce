@@ -4,6 +4,7 @@ const {
   handleUserRegister,
   handleUserLogin,
   handelJwtTokenBasedLogin,
+  handelAdminAccess,
 } = require("../controllers/Auth");
 const {
   getLikedProducts,
@@ -24,6 +25,7 @@ Router.get("/auth", (req, res) => {
 });
 Router.get("/getallusers", getAllUsers);
 Router.post("/register", handleUserRegister);
+Router.post("/adminlogin", handelAdminAccess);
 Router.post("/login", handleUserLogin);
 Router.post("/jwtlogin", handelJwtTokenBasedLogin);
 Router.get("/likedproducts", getLikedProducts);
