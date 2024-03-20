@@ -46,7 +46,6 @@ export default function MyContext(props) {
       navigator("/");
     } catch (error) {
       toast.error(error.response.data.msg);
-      console.log();
     }
   };
 
@@ -73,7 +72,7 @@ export default function MyContext(props) {
       toast.success("sign in successfully");
       navigator("/");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.data.msg);
     }
   };
 

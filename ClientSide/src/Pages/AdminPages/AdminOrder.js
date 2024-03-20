@@ -7,9 +7,6 @@ function AdminOrder() {
   const navigator = useNavigate();
 
   useEffect(() => {
-    user?.userRole !== "admin" && navigator("/admin");
-  });
-  useEffect(() => {
     setAllOrders(allOrders);
   }, [allOrders]);
   return (

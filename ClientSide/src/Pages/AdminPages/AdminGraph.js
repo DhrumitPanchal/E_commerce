@@ -5,9 +5,6 @@ function AdminGraph() {
   const { user } = useContext(Context);
   const navigator = useNavigate();
 
-  useEffect(() => {
-    user?.userRole !== "admin" && navigator("/admin");
-  });
   return <div>AdminGraph</div>;
 }
 

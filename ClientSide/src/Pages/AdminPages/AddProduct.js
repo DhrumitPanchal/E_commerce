@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Context } from "../../Redux/Context";
-import axios from "axios";
 function AddProduct() {
   const { user, handelAddProduct, productData, handelUpdateProduct } =
     useContext(Context);
@@ -31,9 +30,9 @@ function AddProduct() {
       : handelUpdateProduct(formData?._id, formData);
   };
 
-  useEffect(() => {
-    user?.userRole !== "admin" && navigator("/admin");
-  });
+  // useEffect(() => {
+  //   user?.userRole !== "admin" && navigator("/admin");
+  // });
 
   useEffect(() => {
     if (id) {

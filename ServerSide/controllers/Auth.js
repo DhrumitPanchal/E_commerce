@@ -13,8 +13,9 @@ async function getAllUsers(req, res) {
 
 async function handleUserRegister(req, res) {
   const { name, email, password } = req.body;
-  if (!name || !email || !password)
-    return res.json({ msq: "invalid credentials" });
+  if (!name || !email || !password) {
+    return res.status(404).json({ msg: "invalid credentials" });
+  }
   const user = await User.findOne({ email });
   if (user) return res.status(400).json({ msg: "user already exist" });
   const HashPassword = await bcrypt.hash(password, 10);
@@ -34,8 +35,9 @@ async function handleUserRegister(req, res) {
 async function handleUserLogin(req, res) {
   try {
     const { email, password } = req.body;
-    if (!email || !password)
-      return res.json({ msg: "email and password are required" });
+    if (!email || !password) {
+      return res.status(400).json({ msg: "email and password are required" });
+    }
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ msg: "user not Found" });
 
@@ -96,7 +98,7 @@ async function handelAdminAccess(req, res) {
         .status(200)
         .json({ msg: "login success as admin", role: user.userRole });
     }
-    
+
     return res.status(404).json({ msg: "incorrect credential" });
   } catch (error) {
     return res.status(500).json({ msg: "Internal server error" });

@@ -16,7 +16,9 @@ function AdminPage({ Path }) {
   const navigator = useNavigate();
 
   useEffect(() => {
-    user?.userRole !== "admin" && navigator("/admin");
+    if (user?.userRole !== "admin") {
+      navigator("/admin");
+    }
   });
 
   return (

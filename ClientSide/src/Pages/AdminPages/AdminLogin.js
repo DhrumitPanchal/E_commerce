@@ -11,6 +11,7 @@ function AdminLogin() {
   const handleInput = (e) => {
     setFromData({ ...formData, [e.target.name]: e.target.value });
   };
+
   return (
     <section className="flex items-center justify-center w-full h-screen select-none ">
       <div className="p-[4rem] w-[30rem] rounded-[1rem] bg-black">

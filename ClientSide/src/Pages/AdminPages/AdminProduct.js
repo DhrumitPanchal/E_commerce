@@ -9,9 +9,6 @@ function AdminProduct() {
 
   const navigator = useNavigate();
 
-  useEffect(() => {
-    user?.userRole !== "admin" && navigator("/admin");
-  });
   return (
     <>
       <nav className="px-[2rem] max-sm:px-[1rem] py-[1rem]  flex justify-between flex-row-reverse max-sm:flex-col max-sm:gap-[1rem]">

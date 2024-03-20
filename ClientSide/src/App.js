@@ -1,9 +1,8 @@
-import { lazy, Suspense, useContext } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Loading from "./components/Loading";
 import MyContext from "./Redux/Context";
 import { Toaster } from "react-hot-toast";
-import { Context } from "./Redux/Context";
 const Navbar = lazy(() => import("./components/Navbar"));
 const Footer = lazy(() => import("./components/Footer"));
 const HomePage = lazy(() => import("./Pages/HomePage"));

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { Context } from "../../Redux/Context";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,6 @@ function AdminUser() {
   const { user, allUsers } = useContext(Context);
   const navigator = useNavigate();
 
-  useEffect(() => {
-    user?.userRole !== "admin" && navigator("/admin");
-  });
   return (
     <main className="px-[1.6rem] pt-[1.6rem] max-sm:px-[1rem] max-sm:pt-[4.2rem] pb-[2rem] flex flex-col gap-[1.2rem]">
       {allUsers?.map((item) => (

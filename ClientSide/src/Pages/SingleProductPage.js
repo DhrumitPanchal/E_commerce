@@ -77,15 +77,7 @@ function SingleProductPage() {
             <h2 className="mt-[.4rem] text-[1.2rem] font-normal">
               {product?.product_description}
             </h2>
-            {/* <div className="mt-[.6rem] flex items-center gap-[.6rem]">
-        <h2 className="text-[1.2rem]">
-          Rating :{" "}
-          <span className="ml-[.6rem]">
-            {Math.round(product?.product_rating)}
-          </span>
-        </h2>{" "}
-        <Rating value={3} />
-      </div> */}
+
             <div className="mt-[.8rem] flex flex-col">
               <div className="flex  gap-[1rem]">
                 {product?.discount_rate && (
@@ -163,8 +155,8 @@ function SingleProductPage() {
         Other products
       </h2>
       <section className="mb-[4rem] mt-[2rem] flex justify-center flex-wrap gap-[3rem] max-sm:gap-[1rem] ">
-        {productData?.map((e) => (
-          <ProductCard data={e} />
+        {productData?.map((e, index) => (
+          <ProductCard key={index} data={e} />
         ))}
       </section>
     </>
