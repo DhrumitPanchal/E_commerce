@@ -16,10 +16,15 @@ function AdminPage({ Path }) {
   const navigator = useNavigate();
 
   useEffect(() => {
-    if (user?.userRole !== "admin") {
-      navigator("/admin");
+    console.log("role : " + user?.userRole);
+    if (user?.userRole === "admin") {
+      navigator("/admin/order");
+    } else {
+      {
+        navigator("/admin");
+      }
     }
-  });
+  }, [user]);
 
   return (
     <div className="relative flex w-screen h-screen overflow-x-hidden h-sc">

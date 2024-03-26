@@ -9,8 +9,8 @@ function AdminOrder() {
     const orderDateObj = new Date(orderDate);
     const currentDate = new Date();
     const diffInMilliseconds = currentDate - orderDateObj;
-    const age = Math.round(diffInMilliseconds / (1000 * 60 * 60 * 24)) - 1;
-    return age < 1 ? "Today" : age;
+    const Days = Math.round(diffInMilliseconds / (1000 * 60 * 60 * 24)) - 1;
+    return Days < 1 ? "Today" : Days;
   }
 
   useEffect(() => {
@@ -52,7 +52,10 @@ function AdminOrder() {
 
                   <div className="flex gap-[.3rem] font-medium ">
                     <h2>Order Added : </h2>
-                    <h2>{getOrderAgeInDays(data?.date_added)}</h2>
+                    <h2>
+                      {getOrderAgeInDays(data?.date_added)}{" "}
+                      <span className="text-[.8rem] font-normal">day ago</span>
+                    </h2>
                   </div>
                 </div>
                 <div className="max-sm:mt-[.4rem] flex gap-[2rem] w-fit">

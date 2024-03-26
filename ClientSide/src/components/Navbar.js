@@ -27,9 +27,8 @@ function Navbar() {
   if (isAdminPath === "register") return;
 
   function logout() {
-    Cookies.remove("accessToken");
-    setMenu(!menu);
-    return navigator("/login");
+    navigator("/login");
+    return Cookies.remove("accessToken");
   }
   return (
     <>
@@ -54,9 +53,9 @@ function Navbar() {
             Products
           </NavLink>
         </ul>
-        <div className="flex items-center  gap-[.4rem] max-sm:gap-[.2rem]">
+        <div className="flex items-center  gap-[.4rem] max-sm:gap-0">
           <Link className="z-40 max-sm:block hidden p-[.8rem] " to="/">
-            <GoHome className="cursor-pointer text-[1.6rem]" />
+            <GoHome className="cursor-pointer text-[2rem]" />
           </Link>
 
           <Link className="z-40  max-sm:block hidden p-[.8rem] " to="/products">
@@ -93,7 +92,7 @@ function Navbar() {
       </nav>
 
       {menu && (
-        <div className="z-50 px-[1rem] py-[.8rem] absolute top-[3.4rem] right-[2.4rem] rounded-[.4rem]  w-[10rem] text-[1.2rem] before:content-[''] before:absolute before:-top-[.5rem] before:right-[1rem] before:z-10  before:h-[1rem] before:rotate-[-45deg] before:w-[1rem] before:bg-white font-medium text-black/50 bg-white shadow-[0px_1.2px_3px_1px_rgba(0,0,0,0.4)] before:shadow-[1px_-1px_.8px_.1px_rgba(0,0,0,0.2)]">
+        <div className="z-50 px-[1rem] py-[.8rem] absolute top-[3.4rem] right-[2.4rem] max-sm:right-[1.1rem] rounded-[.4rem]  w-[10rem] text-[1.2rem] before:content-[''] before:absolute before:-top-[.5rem] before:right-[1rem] before:z-10  before:h-[1rem] before:rotate-[-45deg] before:w-[1rem] before:bg-white font-medium text-black/50 bg-white shadow-[0px_1.2px_3px_1px_rgba(0,0,0,0.4)] before:shadow-[1px_-1px_.8px_.1px_rgba(0,0,0,0.2)]">
           <Link to="profile">
             <h2
               onClick={() => setMenu(!menu)}
@@ -112,14 +111,12 @@ function Navbar() {
               </h2>
             </Link>
           )}
-          <Link>
-            <h2
-              onClick={() => logout()}
-              className="w-full text-black transition-colors duration-300 "
-            >
-              Log Out
-            </h2>
-          </Link>
+          <h2
+            onClick={() => logout()}
+            className="w-full text-black transition-colors duration-300 "
+          >
+            Log Out
+          </h2>
         </div>
       )}
     </>

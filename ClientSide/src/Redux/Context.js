@@ -24,6 +24,8 @@ export default function MyContext(props) {
   const [allUsers, setAllUsers] = useState([]);
 
   const BaseURL = process.env.REACT_APP_BACKENDURL;
+  const jwtSecretKey = process.env.jwtSecretKey;
+  const adminRoleKeyWord = process.env.adminAccess;
   // sign up ---------------------------------------------------------
 
   const handelSignUp = async ({ name, email, password }) => {
@@ -371,9 +373,14 @@ export default function MyContext(props) {
         email: email,
         password: password,
       });
-      console.log(data.role);
       setUser({ ...user, userRole: data.role });
-      navigator("/admin/products");
+
+      // Check if the user role is "admin"
+      if (data.role === "admin") {
+        navigator("/admin/products");
+      } else {
+        navigator("/admin");
+      }
     } catch (error) {
       toast.error(error.response.data.msg);
     }
@@ -386,6 +393,9 @@ export default function MyContext(props) {
     handelJwtLogin();
   }, []);
 
+  useEffect(() => {
+    console.log("role user : " + user.userRole);
+  }, [user]);
   return (
     <Context.Provider
       value={{
