@@ -15,6 +15,7 @@ export default function MyContext(props) {
     likedProducts: [],
     cartProducts: [],
     userRole: "",
+    userOrderID: "",
   });
 
   const [accessToken, setAccessToken] = useState(null);
@@ -38,10 +39,9 @@ export default function MyContext(props) {
         name: data.user.name,
         email: data.user.email,
         userId: data.user._id,
-        userRole: data.userRole,
+        userRole: data.user.userRole,
+        userOrderID: data.user.userOrderID,
       });
-
-      console.log("state data is : " + { ...user });
       toast.success("sign up successfully");
       navigator("/");
     } catch (error) {
@@ -64,7 +64,8 @@ export default function MyContext(props) {
         userId: data.user._id,
         likedProducts: data.user.likedProducts,
         cartProducts: data.user.cartProducts,
-        userRole: data.userRole,
+        userRole: data.user.userRole,
+        userOrderID: data.user.userOrderID,
       });
 
       setAccessToken(data.access_Token);
@@ -92,11 +93,14 @@ export default function MyContext(props) {
           likedProducts: data.likedProducts,
           cartProducts: data.cartProducts,
           userRole: data.userRole,
+          userOrderID: data.userOrderID,
         });
       } else {
         navigator("/login");
       }
-    } catch (error) {}
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
   };
 
   //  Add Liked Product -------------------------------------------------
@@ -225,7 +229,7 @@ export default function MyContext(props) {
         setProductData(result.data.result);
       });
     } catch (error) {
-      toast.error(error.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -238,7 +242,7 @@ export default function MyContext(props) {
       navigator("/admin/products");
       getAllProducts();
     } catch (error) {
-      toast.error(error.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -254,7 +258,7 @@ export default function MyContext(props) {
       navigator("/admin/products");
       getAllProducts();
     } catch (error) {
-      toast.error(error.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -269,7 +273,7 @@ export default function MyContext(props) {
       toast.success("Product deleted successfully");
       getAllProducts();
     } catch (error) {
-      toast.error(error.msg);
+      toast.error(error.response.data.msg);
     }
   };
 
@@ -280,39 +284,8 @@ export default function MyContext(props) {
       const { data } = await axios.get(BaseURL + "/orders");
       setAllOrders(data.result);
     } catch (error) {
-      toast.error(error.msg);
+      toast.error(error.response.data.msg);
     }
-  };
-
-  // add all cart order --------------------------------------------
-
-  const handelAllCartAddOrder = async () => {
-    try {
-      await axios.post(BaseURL + "/orders", {
-        userID: user.userId,
-        orderData: user.cartProducts,
-      });
-
-      toast.success("order added successfully");
-    } catch (error) {
-      toast.error(error.msg);
-    }
-  };
-
-  // add single order -------------------------------------
-
-  const handelSingleOrder = async (id, prize, quantity) => {
-    try {
-      await axios.post(BaseURL + "/orders", {
-        userID: user.userId,
-        orderData: [{ productId: id, Prize: prize, Quantity: quantity }],
-      });
-
-      toast.success("order added successfully");
-    } catch (error) {
-      toast.error(error.msg);
-    }
-    handelGetallOrders();
   };
 
   // get all users -----------------------------------------
@@ -322,8 +295,72 @@ export default function MyContext(props) {
       const { data } = await axios.get(BaseURL + "/getallusers");
       setAllUsers(data.allUsers);
     } catch (error) {
-      toast.error(error.msg);
+      toast.error(error.response.data.msg);
     }
+  };
+
+  // add all cart order --------------------------------------------
+
+  const handelAllCartAddOrder = async () => {
+    let totalItems = 0;
+    let totalAmount = 0;
+    user.cartProducts.map((pro) => {
+      return (totalItems += pro.Quantity);
+    });
+
+    user.cartProducts.map((pro) => {
+      return (totalAmount += pro.Prize * pro.Quantity);
+    });
+
+    console.log("bill all order : " + totalItems + totalAmount);
+    try {
+      await axios.post(BaseURL + "/orders", {
+        user: user.userId,
+        items: user.cartProducts,
+        bill: {
+          totalItems,
+          totalAmount,
+        },
+      });
+
+      await axios.delete(BaseURL + "/cartproducts/all", {
+        data: { id: user?.userId },
+      });
+      setUser({
+        ...user,
+        cartProducts: [],
+      });
+      toast.success("order added successfully");
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
+
+  // add single order -------------------------------------
+
+  const handelSingleOrder = async (id, prize, quantity) => {
+    try {
+      await axios.post(BaseURL + "/orders", {
+        user: user.userId,
+        items: [{ ProductID: id, Prize: prize, Quantity: quantity }],
+        bill: {
+          totalItems: quantity,
+          totalAmount: quantity * prize,
+        },
+      });
+      await axios.delete(BaseURL + "/cartproducts", {
+        data: { id: user.userId, productId: id },
+      });
+      setUser({
+        ...user,
+        cartProducts: user.cartProducts.filter((item) => item.ProductID !== id),
+      });
+
+      toast.success("order added successfully");
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+    handelGetallOrders();
   };
 
   // admin access using email and password ----------------------

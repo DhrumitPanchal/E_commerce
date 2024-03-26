@@ -44,41 +44,39 @@ function ProductCard(props) {
       <div
         ref={cardRef}
         onClick={() => navigator(`/products/${data?._id}`)}
-        className="max-sm:pt-[1rem]  product-card cursor-pointer h-fit max-sm:w-[13rem] rounded-[.6rem] shadow-[0px_2px_4px_1px_rgba(0,0,0,0.4)]"
+        className=" product-card cursor-pointer h-fit max-sm:w-[13rem] "
       >
-        <div className=" overflow-hidden h-[14rem] w-[16rem] max-sm:h-[10rem] max-sm:w-[12rem] flex justify-center items-center">
+        <div className="group relative overflow-hidden h-[20rem] w-fit max-sm:h-fit max-sm:w-full flex justify-center items-center">
           <img
             src={data?.Image_url}
             alt=""
-            className=" h-[9.5rem] max-sm:h-[8.5rem] flex justify-center items-center"
+            className="flex items-center justify-center h-full "
           />
-        </div>
-        <div className="px-[1.2rem] w-full max-sm:px-[.8rem] py-[.8rem] flex flex-col justify-between">
-          <div className="flex justify-between gap-[.6rem] w-full">
-            <div className="w-full ">
-              <h3 className="text-[.8rem]">{data?.product_category}</h3>
-              <p className="w-[8.6rem] truncate ... font-semibold ">
-                {data?.product_name}
-              </p>
-            </div>
-            <div
-              onClick={handleLikeClick}
-              className="z-10 mt-[.2rem] h-fit p-[.7rem] max-sm:p-[.4rem]"
-            >
-              {liked ? (
-                <FaHeart className="text-red-500 text-[1.3rem] " />
-              ) : (
-                <FaRegHeart className="text-[1.3rem] " />
-              )}
-            </div>
+
+          <div
+            onClick={handleLikeClick}
+            className="group-hover:flex hidden transition-all duration-700  absolute top-[.8rem] bg-white rounded-full right-[.8rem]  justify-center items-center z-20 mt-[.2rem] h-[1.9rem] w-[1.9rem]"
+          >
+            {liked ? (
+              <FaHeart className="text-red-500 text-[1rem] " />
+            ) : (
+              <FaRegHeart className="text-[1rem] " />
+            )}
           </div>
-          <div className="flex gap-[1rem]">
+        </div>
+        <div className=" w-full max-sm:px-[.8rem] py-[.8rem] flex flex-col justify-between">
+          <div className="w-full">
+            <p className="w-[13.4rem] font-thin truncate ...">
+              {data?.product_name}
+            </p>
+          </div>
+          <div className="flex gap-[1rem] text-[.8rem]">
             {data?.discount_rate && (
-              <h2 className="italic font-semibold text-red-700 line-through">
+              <h2 className="italic font-normal line-through ">
                 ₹{data?.product_price + (10 * data?.product_price) / 100}
               </h2>
             )}
-            <h2 className="font-semibold">
+            <h2 className="font-normal text-green-600">
               ₹{data?.product_price}{" "}
               {data?.discount_rate && `(${data?.discount_rate}%`}
             </h2>

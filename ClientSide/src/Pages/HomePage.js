@@ -10,12 +10,17 @@ function HomePage() {
 
   return (
     <>
-      <section className="bg-red-100 h-[calc(100vh-3.5rem)] max-sm:h-fit w-full">
+      <section className="bg-red-100 h-[calc(100vh-3.5rem)] max-sm:h-fit w-full flex">
         <img
           src="https://img.freepik.com/free-photo/photocomposition-horizontal-online-shopping-banner_23-2151201771.jpg?w=1060&t=st=1709046640~exp=1709047240~hmac=d9ab76cfbca0bb544a94d6de81cd650a4f203e052212919b717e6b9dbcf1bef2"
           alt=""
           className="w-full h-full max-sm:h-fit"
         />
+        {/* <div className="w-1/2 h-full ">
+          <div className="w-full bg-black h-1/2"></div>
+          <div className="w-full h-1/2 "></div>
+        </div>
+        <div className="w-1/2 h-full bg-orange-200"></div> */}
       </section>
 
       <section className="py-[3rem] flex items-center flex-col">

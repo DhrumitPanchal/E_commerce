@@ -1,10 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import { Context } from "../Redux/Context";
+import { useNavigate } from "react-router-dom";
 
 function Cartcard(props) {
   const { ProductData, quantity } = props;
   const [productQuantity, setProductQuantity] = useState(null);
+
+  const navigator = useNavigate();
   const { handleAddToCart, handleRemoveFromCart, handelSingleOrder } =
     useContext(Context);
   useEffect(() => {
@@ -12,33 +15,38 @@ function Cartcard(props) {
   }, []);
   return (
     <>
-      <div className="h-[8rem] max-sm:h-fit p-[.6rem] flex max-sm:flex-wrap items-center justify-between gap-[2rem] max-sm:gap-[1rem] max-sm:pb-[2rem] rounded-[1rem]  shadow-[0px_2px_4px_1px_rgba(0,0,0,0.2)]">
-        <div className="select-none w-[10rem] p-[1rem] flex items-center justify-center rounded-[1rem]">
-          <img src={ProductData?.Image_url} alt="" className="h-[5rem]" />
+      <div className="h-fit max-sm:h-fit flex max-sm:flex-wrap gap-[3rem] max-sm:gap-[1rem] pb-[1.5rem] max-sm:pb-[2rem] border-b-[.5px]  border-black/50">
+        <div
+          onClick={() => navigator(`/products/${ProductData?._id}`)}
+          className="cursor-pointer select-none h-[16rem] w-[10.6rem]"
+        >
+          <img src={ProductData?.Image_url} alt="" className="h-full" />
         </div>
 
-        <div className="py-[.6rem] h-full w-[24rem] max-sm:w-[13rem]">
-          <h3 className="text-[.8rem]">{ProductData?.product_category}</h3>
-          <h2 className="font-semibold">{ProductData?.product_name}</h2>
-          <div className="flex gap-[1rem]">
-            {ProductData?.discount_rate && (
-              <h2 className="italic font-semibold line-through text-black/80">
-                ₹
-                {ProductData?.product_price +
-                  (10 * ProductData?.product_price) / 100}
-              </h2>
-            )}
-            <h2 className="font-semibold">
-              ₹{ProductData?.product_price}
-              {ProductData?.discount_rate && ` (${ProductData?.discount_rate}%`}
-            </h2>
-          </div>
-          <div className="font-semibold">
-            Total : {ProductData?.product_price * productQuantity}
+        <div className="flex flex-col gap-[.2rem] h-full w-[24rem] max-sm:w-[13rem]">
+          <h3 className="text-[.9rem] font-light w-[24rem] max-sm:w-[16rem]  truncate ...">
+            {ProductData?.product_category}
+          </h3>
+          <h2
+            onClick={() => navigator(`/products/${ProductData?._id}`)}
+            className="cursor-pointer text-[1.1rem] font-normal w-[24rem] max-sm:w-[16rem]  truncate ..."
+          >
+            {ProductData?.product_name}
+          </h2>
+          <h2 className="text-[.9rem] font-normal w-[24rem] max-sm:w-[16rem]  ">
+            {ProductData?.product_description}
+          </h2>
+
+          <div className="hidden mt-[.4rem] max-sm:flex gap-[1rem] w-[6rem]">
+            <h2 className="font-normal">₹{ProductData?.product_price}.00</h2>
           </div>
         </div>
 
-        <div className="max-sm:ml-[2rem] flex items-center gap-[1rem]">
+        <div className="max-sm:hidden flex gap-[1rem] w-[6rem]">
+          <h2 className="font-normal">₹{ProductData?.product_price}.00</h2>
+        </div>
+
+        <div className="max-sm:mt-[.6rem] w-[7rem] flex gap-[1rem]">
           <div
             onClick={() => {
               handleAddToCart(
@@ -48,14 +56,13 @@ function Cartcard(props) {
               );
               setProductQuantity(productQuantity + 1);
             }}
-            className="cursor-pointer h-[2rem] w-[2rem] text-[1.3rem] rounded-[.2rem] flex justify-center transition-colors duration-300 items-center bg-black/80 hover:bg-black text-white"
+            className="cursor-pointer h-[1.6rem] w-[1.6rem] text-[1.3rem] rounded-[.2rem] flex justify-center transition-colors duration-300 items-center bg-black/80 hover:bg-black text-white"
           >
-            <FaPlus className="text-[.8rem]" />
+            <FaPlus className="text-[.6rem]" />
           </div>
-          <div className="select-none text-[1.6rem] text-black">
-            {" "}
+          <h2 className=" select-none text-[1.4rem] leading-[1.6rem]  text-black">
             {productQuantity}
-          </div>
+          </h2>
           <div
             onClick={() => {
               if (productQuantity > 1) {
@@ -67,12 +74,18 @@ function Cartcard(props) {
                 setProductQuantity(productQuantity - 1);
               }
             }}
-            className="cursor-pointer h-[2rem] w-[2rem] text-[1.3rem] rounded-[.2rem] flex justify-center transition-colors duration-300 items-center bg-black/80 hover:bg-black text-white"
+            className="cursor-pointer h-[1.6rem] w-[1.6rem] text-[1.3rem] rounded-[.2rem] flex justify-center transition-colors duration-300 items-center bg-black/80 hover:bg-black text-white"
           >
-            <FaMinus className="text-[.8rem]" />
+            <FaMinus className="text-[.6rem]" />
           </div>
         </div>
-        <div className="max-sm:ml-[2rem] mr-[2rem] flex gap-[2rem]">
+
+        <div className=" max-sm:mt-[.6rem] w-[8rem] font-semibold ">
+          <span>Total :</span> ₹{ProductData?.product_price * productQuantity}
+          .00
+        </div>
+
+        <div className=" mr-[2rem] flex gap-[2rem]">
           <div
             onClick={() =>
               handelSingleOrder(
@@ -81,15 +94,15 @@ function Cartcard(props) {
                 productQuantity
               )
             }
-            className="cursor-pointer flex items-center px-[2rem] h-[2.6rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-green-600"
+            className="cursor-pointer flex items-center px-[2rem] h-[2.2rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-green-600/70 hover:bg-green-600 transition-all duration-300"
           >
-            Bay
+            Buy
           </div>
           <div
             onClick={() => {
               handleRemoveFromCart(ProductData?._id);
             }}
-            className="cursor-pointer flex items-center px-[2rem] h-[2.6rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-red-500"
+            className="cursor-pointer flex items-center px-[2rem] h-[2.2rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-red-500/80 hover:bg-red-500  transition-all duration-300"
           >
             Remove
           </div>

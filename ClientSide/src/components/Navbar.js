@@ -1,6 +1,17 @@
 import React, { useState, useContext } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
-import { FaShoppingBag, FaHeart, FaUser, FaHome, FaBox } from "react-icons/fa";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { FaRegUser } from "react-icons/fa";
+import { GoHome } from "react-icons/go";
+import { BsBox2 } from "react-icons/bs";
+
+import {
+  FaShoppingBag,
+  FaRegHeart,
+  FaUser,
+  FaHome,
+  FaBox,
+} from "react-icons/fa";
 import Cookies from "js-cookie";
 import { Context } from "../Redux/Context";
 function Navbar() {
@@ -22,7 +33,10 @@ function Navbar() {
   }
   return (
     <>
-      <nav className="relative z-50 px-[2.4rem] h-[3.5rem] max-sm:px-[1rem] flex justify-between items-center border-b-[1px] border-black bg-white">
+      <nav
+        id="navbar"
+        className="relative z-50 px-[2.4rem] h-[3.5rem] max-sm:px-[1rem] flex justify-between items-center border-b-[1px] border-black bg-white"
+      >
         <Link to="/" className="cursor-pointer text-[1.3rem] font-semibold">
           ShopNest
         </Link>
@@ -42,19 +56,24 @@ function Navbar() {
         </ul>
         <div className="flex items-center  gap-[.4rem] max-sm:gap-[.2rem]">
           <Link className="z-40 max-sm:block hidden p-[.8rem] " to="/">
-            <FaHome className="cursor-pointer text-[1.6rem]" />
+            <GoHome className="cursor-pointer text-[1.6rem]" />
           </Link>
 
           <Link className="z-40  max-sm:block hidden p-[.8rem] " to="/products">
-            <FaBox className="cursor-pointer text-[1.6rem]" />
+            <BsBox2 className="cursor-pointer text-[1.6rem]" />
           </Link>
 
           <Link className="z-40 p-[.8rem] " to="/Likedproducts">
-            <FaHeart className="cursor-pointer text-[1.6rem]" />
+            <FaRegHeart className="cursor-pointer text-[1.6rem]" />
           </Link>
 
-          <Link className="z-40 p-[.8rem] " to="/cart">
-            <FaShoppingBag className="cursor-pointer text-[1.6rem]" />
+          <Link className="relative z-40 p-[.8rem] " to="/cart">
+            {user.cartProducts.length > 0 && (
+              <div className="absolute flex justify-center items-center text-[.8rem] top-[1rem] right-[.6rem] h-[1.2rem] w-[1.2rem] rounded-full  text-white bg-black">
+                {user.cartProducts.length}
+              </div>
+            )}
+            <HiOutlineShoppingBag className="cursor-pointer text-[2rem]" />
           </Link>
 
           {!isLogdin ? (
@@ -67,7 +86,7 @@ function Navbar() {
             </Link>
           ) : (
             <div onClick={() => setMenu(!menu)} className="z-40 p-[.8rem] ">
-              <FaUser className=" text-[1.6rem]" />
+              <FaRegUser className=" text-[1.6rem]" />
             </div>
           )}
         </div>

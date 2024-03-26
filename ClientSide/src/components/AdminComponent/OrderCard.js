@@ -1,61 +1,51 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../../Redux/Context";
+import { FaPlus, FaMinus } from "react-icons/fa";
 
 function OrderCard(props) {
   const [orders, setOrders] = useState([]);
-  const { productsDetails } = props.productData;
+  const { productsDetails } = props;
   const { handleRemoveFromCart, productData } = useContext(Context);
 
   useEffect(() => {
     const filteredProducts = productData?.filter((product) =>
-      productsDetails?.some((order) => order.ProductID === product?._id)
+      productsDetails?.items.some((order) => order.ProductID === product?._id)
     );
     setOrders(filteredProducts);
   }, []);
 
   return (
-    <div className="h-[8rem] max-sm:h-fit p-[.6rem] flex max-sm:flex-wrap items-center justify-between gap-[2rem] max-sm:gap-[1rem] max-sm:pb-[2rem] rounded-[1rem]  shadow-[0px_2px_5px_1px_rgba(0,0,0,0.2)]">
-      <div className="flex h-full gap-[2rem]">
-        <div className="select-none w-[10rem] p-[1rem] flex items-center justify-center rounded-[1rem]">
-          <img src={orders[0]?.Image_url} alt="" className="h-[5rem]" />
-        </div>
+    <>
+      {orders?.map((item, index) => {
+        return (
+          <div className="h-fit max-sm:h-fit flex max-sm:flex-wrap gap-[.8rem] max-sm:gap-[0rem] max-sm:pb-[rem] ">
+            <div
+              onClick={() => navigator(`/products/${item?._id}`)}
+              className="cursor-pointer  select-none h-[10rem] w-[7rem]"
+            >
+              <img src={item?.Image_url} alt="" className="h-full w-fit" />
+            </div>
 
-        <div className="py-[.6rem] h-full w-[24rem] max-sm:w-[13rem]">
-          <h3 className="text-[.8rem]">{orders[0]?.product_category}</h3>
-          <h2 className="font-semibold">{orders[0]?.product_name}</h2>
-          <div className="flex gap-[1rem]">
-            {orders[0]?.discount_rate && (
-              <h2 className="italic font-semibold line-through text-black/80">
-                ₹
-                {orders[0]?.product_price +
-                  (10 * orders[0]?.product_price) / 100}
+            <div className="flex max-sm:mt-[.4rem] flex-col gap-[.2rem] max-sm:gap-0 h-full w-[10rem] max-sm:w-[8rem] ">
+              <h2 className="cursor-pointer text-[.8rem] font-normal w-[10rem] max-sm:w-[8rem]  truncate ...">
+                {item?.product_name}
               </h2>
-            )}
-            <h2 className="font-semibold">
-              ₹{orders[0]?.product_price}
-              {orders[0]?.discount_rate && ` (${orders[0]?.discount_rate}%`}
-            </h2>
-          </div>
-          <h3 className="font-semibold">
-            Quantity : {productsDetails[0]?.Quantity}
-          </h3>
-        </div>
-      </div>
 
-      <div className="max-sm:ml-[2rem] mr-[2rem] flex gap-[2rem]">
-        <div className="cursor-pointer flex items-center px-[2rem] h-[2.6rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-green-600">
-          Done
-        </div>
-        <div
-          onClick={() => {
-            handleRemoveFromCart(orders[0]?.productID);
-          }}
-          className="cursor-pointer flex items-center px-[2rem] h-[2.6rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-red-500"
-        >
-          Cancel
-        </div>
-      </div>
-    </div>
+              <div className=" flex flex-col gap-[.2rem] w-full">
+                <div className="flex font-normal gap-[.6rem]">
+                  <h2>Prize : </h2>
+                  <h2>₹{item?.product_price}.00</h2>
+                </div>
+                <div className="flex font-normal gap-[.6rem]">
+                  <h2>Quantity : </h2>
+                  <h2>{productsDetails.items[index]?.Quantity}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </>
   );
 }
 

@@ -50,7 +50,7 @@ function SingleProductPage() {
           <div className="flex flex-col w-full bg-white ">
             <div className="flex justify-between ">
               <div>
-                <h2 className="text-[1.6rem] font-semibold">
+                <h2 id="name" className="text-[1.6rem] font-normal">
                   {product?.product_name}
                 </h2>
                 <h2 className="text-[1.1rem] font-semibold">
@@ -122,13 +122,13 @@ function SingleProductPage() {
                 onClick={() =>
                   handelSingleOrder(
                     product?._id,
-                    quantity,
-                    product?.product_price
+                    product?.product_price,
+                    quantity
                   )
                 }
                 className="cursor-pointer flex items-center px-[2rem] h-[2.6rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-green-600"
               >
-                Bay
+                Buy
               </div>
               <div
                 onClick={() =>
@@ -156,7 +156,9 @@ function SingleProductPage() {
       </h2>
       <section className="mb-[4rem] mt-[2rem] flex justify-center flex-wrap gap-[3rem] max-sm:gap-[1rem] ">
         {productData?.map((e, index) => (
-          <ProductCard key={index} data={e} />
+          <a href="#navbar">
+            <ProductCard key={index} data={e} />
+          </a>
         ))}
       </section>
     </>

@@ -24,6 +24,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "user",
   },
+  userOrderID: {
+    type: String,
+  },
 });
 
 const User = mongoose.model("user", UserSchema);

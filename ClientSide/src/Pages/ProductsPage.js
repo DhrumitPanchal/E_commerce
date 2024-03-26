@@ -85,7 +85,7 @@ function ProductsPage() {
                 <input
                   type="range"
                   min="250"
-                  max="20000"
+                  max="10000"
                   className="w-full appearance-none bg-transparent [&::-webkit-slider-runnable]:h-[.4rem] [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-black/25 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[1.2rem] [&::-webkit-slider-thumb]:w-[1.2rem] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-black"
                   value={priceRange}
                   onChange={handlePriceChange}
@@ -157,7 +157,7 @@ function ProductsPage() {
           </div>
         </aside>
         {/* ----------------- products ------------------ */}
-        <div className="mb-[4rem] mt-[3rem] flex justify-center flex-wrap gap-[3rem] min-h-[calc(100vh-3.5rem)] max-sm:min-h-fit max-sm:gap-[1rem] ">
+        <div className="mb-[4rem] flex justify-center w-[calc(100%-22rem)] max-sm:w-full max-sm:mt-[3rem]  px-[1rem] flex-wrap gap-[2.2rem] min-h-[calc(100vh-3.5rem)] max-sm:min-h-fit max-sm:gap-[1rem] ">
           {filterIsActive
             ? filtProducts?.map((e) => <ProductCard data={e} />)
             : productData?.map((e) => <ProductCard data={e} />)}

@@ -166,6 +166,30 @@ async function removeFromCartProduct(req, res) {
   }
 }
 
+async function removeAllCartProduct(req, res) {
+  const { id } = req.body;
+  console.log("id : " + id);
+  if (!id) {
+    return res.status(401).json({ msg: "undefine user id and product id" });
+  }
+  if (!mongoose.isValidObjectId(id)) {
+    return res.status(404).json({ msg: "user ID is not valid" });
+  }
+
+  try {
+    const findUser = await User.findById(id).catch((err) => {
+      return res.status(400).json({ msg: "user not found" });
+    });
+
+    await User.findByIdAndUpdate(id, {
+      cartProducts: [],
+    });
+    return res.status(201).json({ msg: "order added successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: "internal server error" });
+  }
+}
+
 async function updateCartProduct(req, res) {
   const { id, productId, Quantity, Prize } = req.body;
   if (!id || !productId || !Quantity) {
@@ -206,4 +230,5 @@ module.exports = {
   addCartProduct,
   removeFromCartProduct,
   updateCartProduct,
+  removeAllCartProduct,
 };

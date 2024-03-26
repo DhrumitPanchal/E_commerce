@@ -13,6 +13,7 @@ const {
   getCartProducts,
   addCartProduct,
   removeFromCartProduct,
+  removeAllCartProduct,
   updateCartProduct,
 } = require("../controllers/Userproducts");
 const Router = express.Router();
@@ -23,10 +24,10 @@ Router.get("/", (req, res) => {
 Router.get("/auth", (req, res) => {
   res.json({ msg: "working" });
 });
-Router.get("/getallusers", getAllUsers);
 Router.post("/register", handleUserRegister);
-Router.post("/adminlogin", handelAdminAccess);
 Router.post("/login", handleUserLogin);
+Router.get("/getallusers", getAllUsers);
+Router.post("/adminlogin", handelAdminAccess);
 Router.post("/jwtlogin", handelJwtTokenBasedLogin);
 Router.get("/likedproducts", getLikedProducts);
 Router.post("/likedproducts", addLikedProduct);
@@ -35,5 +36,6 @@ Router.get("/cartproducts", getCartProducts);
 Router.post("/cartproducts", addCartProduct);
 Router.put("/cartproducts", updateCartProduct);
 Router.delete("/cartproducts", removeFromCartProduct);
+Router.delete("/cartproducts/all", removeAllCartProduct);
 
 module.exports = Router;
