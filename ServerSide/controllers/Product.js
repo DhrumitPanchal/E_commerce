@@ -13,21 +13,21 @@ async function AddProduct(req, res) {
 
   const {
     product_name,
-    product_category,
     product_description,
+    product_category,
+    product_for,
     product_price,
     discount_rate,
-    product_brand,
     Image_url,
     product_stock,
   } = req.body;
 
   if (
     !product_name ||
-    !product_category ||
     !product_description ||
+    !product_category ||
     !product_price ||
-    !product_brand ||
+    !product_for ||
     !Image_url ||
     !product_stock
   )
@@ -35,12 +35,12 @@ async function AddProduct(req, res) {
   try {
     const product = await Product.create({
       product_name,
-      product_category,
       product_description,
+      product_category,
+      product_for,
       product_price,
       discount_rate,
       product_stock,
-      product_brand,
       Image_url,
     });
 

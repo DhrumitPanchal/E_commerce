@@ -12,7 +12,7 @@ function AddProduct() {
     product_name: "",
     product_description: "",
     product_category: "",
-    product_brand: "",
+    product_for: "",
     product_price: null,
     discount_rate: null,
     product_stock: null,
@@ -74,31 +74,66 @@ function AddProduct() {
 
         <div className="flex gap-[1rem]">
           <select
+            name="product_for"
             required
             onChange={(e) => handelInput(e)}
-            value={formData.product_category}
-            name="product_category"
-            className="w-1/2 px-[1.4rem] py-[.4rem] rounded-[.4rem] text-[1.2rem] max-sm:w-full border-[2px] focus:border-black border-black/30 placeholder:text-black/50"
-          >
-            <option defaultChecked>Product Category</option>
-            <option value="mobile">Mobile</option>
-            <option value="laptop">Laptop</option>
-            <option value="bag">Bag</option>
-            <option value="other">other</option>
-          </select>
-          <select
-            name="product_brand"
-            required
-            onChange={(e) => handelInput(e)}
-            value={formData.product_brand}
+            value={formData.product_for}
             className="w-1/2 px-[1.4rem] py-[.2rem] rounded-[.4rem] text-[1.2rem] max-sm:w-full border-[2px] focus:border-black border-black/30 placeholder:text-black/50"
           >
-            <option defaultChecked>Product Brand</option>
-            <option value="mobile">Mobile</option>
-            <option value="laptop">Laptop</option>
-            <option value="bag">Bag</option>
-            <option value="other">other</option>
+            <option value="both" defaultChecked>
+              Gender
+            </option>
+            <option value="women">Women's</option>
+            <option value="men">Men's</option>
+            <option value="both">Both</option>
           </select>
+
+          <div className="w-1/2">
+            {formData.product_for === "men" ? (
+              <select
+                required
+                onChange={(e) => handelInput(e)}
+                value={formData.product_category}
+                name="product_category"
+                className="w-full px-[1.4rem] py-[.4rem] rounded-[.4rem] text-[1.2rem] max-sm:w-full border-[2px] focus:border-black border-black/30 placeholder:text-black/50"
+              >
+                <option defaultChecked>Product Category</option>
+                <option value="laptop">Shirt</option>
+                <option value="bag">T-Shirt</option>
+                <option value="bag">Hoodies</option>
+                <option value="bag">Jeans</option>
+                <option value="other">Bottom</option>
+                <option value="other">Jacket</option>
+                <option value="other">Swim</option>
+                <option value="other">Shoes</option>
+                <option value="other">ActiveWear</option>
+                <option value="other">Other</option>
+              </select>
+            ) : (
+              <select
+                required
+                onChange={(e) => handelInput(e)}
+                value={formData.product_category}
+                name="product_category"
+                className="w-full px-[1.4rem] py-[.4rem] rounded-[.4rem] text-[1.2rem] max-sm:w-full border-[2px] focus:border-black border-black/30 placeholder:text-black/50"
+              >
+                <option defaultChecked className="text-black/50">
+                  Product Category
+                </option>
+                <option value="mobile">Dress</option>
+                <option value="laptop">Top</option>
+                <option value="bag">T-Shirt</option>
+                <option value="bag">Hoodies</option>
+                <option value="bag">Jeans</option>
+                <option value="other">Bottom</option>
+                <option value="other">Jacket</option>
+                <option value="other">Swim</option>
+                <option value="other">Shoes</option>
+                <option value="other">ActiveWear</option>
+                <option value="other">Other</option>
+              </select>
+            )}
+          </div>
         </div>
 
         <div className="flex max-sm:flex-col gap-[1rem]">

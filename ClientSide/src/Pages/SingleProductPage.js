@@ -53,9 +53,6 @@ function SingleProductPage() {
                 <h2 id="name" className="text-[1.6rem] font-normal">
                   {product?.product_name}
                 </h2>
-                <h2 className="text-[1.1rem] font-semibold">
-                  Brand : {product?.product_brand}
-                </h2>
               </div>
               <div onClick={() => toggleLiked()} className="mr-[.3rem] ">
                 {liked ? (

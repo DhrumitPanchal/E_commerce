@@ -5,26 +5,25 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  product_category: {
-    type: String,
-    required: true,
-  },
   product_description: {
     type: String,
     required: true,
   },
+  product_category: {
+    type: String,
+    required: true,
+  },
+  product_for: {
+    type: String,
+    enum: ["women", "men", "both"],
+    required: true,
+  },
+
   product_price: {
     type: Number,
     required: true,
   },
   discount_rate: {
-    type: Number,
-  },
-  product_brand: {
-    type: String,
-    required: true,
-  },
-  product_rating: {
     type: Number,
   },
   Image_url: {
