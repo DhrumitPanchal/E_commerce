@@ -72,7 +72,7 @@ function AddProduct() {
           className="px-[1.4rem] py-[.2rem] rounded-[.4rem] text-[1.2rem] w-full border-[2px] focus:border-black border-black/30 placeholder:text-black/50"
         />
 
-        <div className="flex gap-[1rem]">
+        <div className="flex max-sm:flex-col gap-[1rem]">
           <select
             name="product_for"
             required
@@ -88,7 +88,7 @@ function AddProduct() {
             <option value="both">Both</option>
           </select>
 
-          <div className="w-1/2">
+          <div className="w-1/2 max-sm:w-full">
             {formData.product_for === "men" ? (
               <select
                 required
@@ -98,16 +98,42 @@ function AddProduct() {
                 className="w-full px-[1.4rem] py-[.4rem] rounded-[.4rem] text-[1.2rem] max-sm:w-full border-[2px] focus:border-black border-black/30 placeholder:text-black/50"
               >
                 <option defaultChecked>Product Category</option>
-                <option value="laptop">Shirt</option>
-                <option value="bag">T-Shirt</option>
-                <option value="bag">Hoodies</option>
-                <option value="bag">Jeans</option>
-                <option value="other">Bottom</option>
-                <option value="other">Jacket</option>
-                <option value="other">Swim</option>
-                <option value="other">Shoes</option>
-                <option value="other">ActiveWear</option>
-                <option value="other">Other</option>
+                <option value="shirt" className="capitalize">
+                  shirt
+                </option>
+                <option value="t-Shirt" className="capitalize">
+                  T-Shirt
+                </option>
+                <option value="hoodies" className="capitalize">
+                  Hoodies
+                </option>
+                <option value="jeans" className="capitalize">
+                  Jeans
+                </option>
+                <option value="shorts" className="capitalize">
+                  Shorts
+                </option>
+                <option value="pants" className="capitalize">
+                  Pants
+                </option>
+                <option value="bottom" className="capitalize">
+                  Bottom
+                </option>
+                <option value="jacket" className="capitalize">
+                  Jacket
+                </option>
+                <option value="swim" className="capitalize">
+                  Swim
+                </option>
+                <option value="shoes" className="capitalize">
+                  Shoes
+                </option>
+                <option value="activeWear" className="capitalize">
+                  ActiveWear
+                </option>
+                <option value="other" className="capitalize">
+                  Other
+                </option>
               </select>
             ) : (
               <select
@@ -120,17 +146,48 @@ function AddProduct() {
                 <option defaultChecked className="text-black/50">
                   Product Category
                 </option>
-                <option value="mobile">Dress</option>
-                <option value="laptop">Top</option>
-                <option value="bag">T-Shirt</option>
-                <option value="bag">Hoodies</option>
-                <option value="bag">Jeans</option>
-                <option value="other">Bottom</option>
-                <option value="other">Jacket</option>
-                <option value="other">Swim</option>
-                <option value="other">Shoes</option>
-                <option value="other">ActiveWear</option>
-                <option value="other">Other</option>
+                <option value="dress" className="capitalize">
+                  Dress
+                </option>
+                <option value="top" className="capitalize">
+                  Top
+                </option>
+                <option value="shirt" className="capitalize">
+                  shirt
+                </option>
+                <option value="t-Shirt" className="capitalize">
+                  T-Shirt
+                </option>
+                <option value="hoodies" className="capitalize">
+                  Hoodies
+                </option>
+                <option value="jeans" className="capitalize">
+                  Jeans
+                </option>
+                <option value="skirt" className="capitalize">
+                  Skirt
+                </option>
+                <option value="shorts" className="capitalize">
+                  Shorts
+                </option>
+                <option value="bottom" className="capitalize">
+                  Bottom
+                </option>
+                <option value="jacket" className="capitalize">
+                  Jacket
+                </option>
+                <option value="swim" className="capitalize">
+                  Swim
+                </option>
+                <option value="shoes" className="capitalize">
+                  Shoes
+                </option>
+                <option value="activeWear" className="capitalize">
+                  ActiveWear
+                </option>
+                <option value="other" className="capitalize">
+                  Other
+                </option>
               </select>
             )}
           </div>

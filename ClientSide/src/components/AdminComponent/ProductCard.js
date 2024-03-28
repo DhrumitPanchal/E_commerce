@@ -14,19 +14,19 @@ function CartCard(props) {
             <img src={ProductData?.Image_url} alt="" className="h-full" />
           </div>
 
-          <div className="flex flex-col gap-[.2rem] h-full w-[24rem] max-sm:w-[13rem]">
-            <h3 className="text-[.9rem] font-light w-[24rem] max-sm:w-[16rem]  truncate ...">
+          <div className="flex flex-col gap-[.2rem] h-full w-[24rem] max-sm:w-[15rem] ">
+            <h3 className="text-[.9rem] font-light w-[24rem] max-sm:w-[15rem]  truncate ...">
               {ProductData?.product_category}
             </h3>
-            <h2 className=" text-[1.1rem] font-normal w-[24rem] max-sm:w-[16rem]  ">
+            <h2 className=" text-[1rem] font-normal w-[24rem] max-sm:w-[15rem]  ">
               {ProductData?.product_name}
             </h2>
 
-            <h3 className="max-sm:pr-[.4rem] text-[.9rem] max-sm:text-[.7rem] font-light max-sm:font-normal w-[24rem] max-sm:w-[16rem] ">
+            <h3 className="max-sm:pr-[.4rem] text-[.9rem] max-sm:text-[.75rem] font-light max-sm:font-normal w-[24rem] max-sm:w-[15rem] ">
               {ProductData?.product_description}
             </h3>
 
-            <div className="flex gap-[1rem]">
+            <div className="flex gap-[1rem] ">
               {ProductData?.discount_rate && (
                 <h2 className="italic font-semibold line-through text-black/80">
                   ₹
@@ -48,10 +48,6 @@ function CartCard(props) {
                 <span className="text-red-500">out of stock</span>
               )}
             </h3>
-
-            <div className="hidden mt-[.4rem] max-sm:flex gap-[1rem] w-[6rem]">
-              <h2 className="font-normal">₹{ProductData?.product_price}.00</h2>
-            </div>
           </div>
         </div>
 

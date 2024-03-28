@@ -62,12 +62,10 @@ function ProductCard(props) {
             )}
           </div>
         </div>
-        <div className=" w-full max-sm:px-[.8rem] py-[.8rem] flex flex-col justify-between">
-          <div className="w-full">
-            <p className="w-[13.4rem] font-thin truncate ...">
-              {data?.product_name}
-            </p>
-          </div>
+        <div className=" w-full py-[.8rem] flex flex-col justify-between">
+          <p className="w-[13rem] font-thin truncate ...">
+            {data?.product_name}
+          </p>
           <div className="flex gap-[1rem] text-[.8rem]">
             {data?.discount_rate && (
               <h2 className="italic font-normal line-through ">

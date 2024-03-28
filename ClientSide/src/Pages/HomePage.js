@@ -40,7 +40,7 @@ function HomePage() {
 
       {/* -------------- poster ------------------- */}
 
-      <section className="mt-[2rem] mb-[4rem] px-[6rem] max-sm:px-[1.2rem] py-[2rem] flex flex-col items-center">
+      <section className="mt-[2rem]  px-[6rem] max-sm:px-[1.2rem] py-[2rem] flex flex-col items-center">
         <h2 className="text-[1.8rem] font-semibold">Blockbuster deals</h2>
         <div className="mt-[3rem] h-fit w-full flex flex-col gap-[1.2rem]">
           <div className="h-[22rem] max-sm:h-fit  w-full bg-black/10">

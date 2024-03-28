@@ -39,12 +39,12 @@ function SingleProductPage() {
   return (
     <>
       {product ? (
-        <section className="py-[4rem] px-[6rem] max-sm:px-[2rem] h-fit flex justify-between max-sm:flex-col gap-[6rem] ">
-          <div className="w-[60rem] h-[30rem] max-sm:w-full max-sm:h-fit flex justify-center items-center ">
+        <section className="py-[4rem] px-[6rem] max-sm:py-[2rem] max-sm:px-[2rem] h-fit flex justify-between max-sm:flex-col gap-[6rem] max-sm:gap-[2rem]">
+          <div className="w-[60rem] h-[30rem] max-sm:w-full max-sm:h-fit flex justify-center items-center  ">
             <img
               alt=""
               src={product?.Image_url}
-              className=" w-[20rem] bg-blue-gray-500"
+              className="w-[20rem] bg-blue-gray-500"
             />
           </div>
           <div className="flex flex-col w-full bg-white ">
