@@ -55,13 +55,12 @@ function LoginPage() {
           </div> */}
           <GoogleLogin
             onSuccess={(credentialResponse) => {
-              googleLogin(credentialResponse)
+              googleLogin(credentialResponse);
             }}
             onError={() => {
               console.log("Login Failed");
             }}
           />
-          ;
           <h2>
             If You Have already account ?
             <Link to={"/register"} className="ml-[.6rem] text-blue-500">
