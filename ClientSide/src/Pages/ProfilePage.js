@@ -20,7 +20,7 @@ function ProfilePage() {
   }, [user.cartProducts, productData]);
 
   useEffect(() => {
-    const filteredProducts = productData?.filter(
+    const filteredProducts = allOrders?.filter(
       (order) => order.user === user.userId
     );
     setUserOrders(filteredProducts);
@@ -99,8 +99,8 @@ function ProfilePage() {
         <main className="pb-[2rem] flex flex-col gap-[1.2rem]">
           <h2 className="mt-[1rem] text-[1.4rem] font-semibold">Your Orders</h2>
 
-          {allOrders?.length > 0 ? (
-            allOrders?.map((data, index) => (
+          {userOrders?.length > 0 ? (
+            userOrders?.map((data, index) => (
               <div
                 key={data._id}
                 className="flex flex-col border-b-[.5px] mb-[1rem] border-black/50 "

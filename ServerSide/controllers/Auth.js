@@ -71,7 +71,6 @@ async function handelJwtTokenBasedLogin(req, res) {
   try {
     const decoded = await jwt.verify(access_Token, process.env.jwtSecretKey);
     const user = await User.findById(decoded._doc._id);
-    console.log("check userdata : " + decoded._doc._id);
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }

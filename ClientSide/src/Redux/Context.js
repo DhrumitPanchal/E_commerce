@@ -1,13 +1,15 @@
 import React, { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export const Context = createContext(null);
 
 export default function MyContext(props) {
   const navigator = useNavigate();
+  const location = useLocation();
+
   const [user, setUser] = useState({
     userId: "",
     name: "",
@@ -97,7 +99,12 @@ export default function MyContext(props) {
           userRole: data.userRole,
           userOrderID: data.userOrderID,
         });
-        navigator("/");
+        if (
+          location.pathname === "/login" ||
+          location.pathname === "/register"
+        ) {
+          navigator("/");
+        }
       } else {
       }
     } catch (error) {
@@ -402,7 +409,6 @@ export default function MyContext(props) {
         userRole: data?.user?.userRole,
         userOrderID: data?.user?.userOrderID,
       });
-      console.log("check token : " + data.access_Token);
 
       setAccessToken(data?.access_Token);
       Cookies.set("userAccessToken", data?.access_Token, { expires: 365 });
