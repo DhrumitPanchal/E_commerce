@@ -71,7 +71,7 @@ export default function MyContext(props) {
       });
 
       setAccessToken(data.access_Token);
-      Cookies.set("accessToken", data.access_Token, { expires: 365 });
+      Cookies.set("userAccessToken", data.access_Token, { expires: 365 });
       toast.success("sign in successfully");
       navigator("/");
     } catch (error) {
@@ -82,7 +82,7 @@ export default function MyContext(props) {
   // login with jwt ---------------------------------------------------
 
   const handelJwtLogin = async () => {
-    const token = Cookies.get("accessToken");
+    const token = Cookies.get("userAccessToken");
     try {
       if (token) {
         const { data } = await axios.post(BaseURL + "/jwtlogin", {
@@ -97,11 +97,12 @@ export default function MyContext(props) {
           userRole: data.userRole,
           userOrderID: data.userOrderID,
         });
+        navigator("/");
       } else {
-        navigator("/login");
       }
     } catch (error) {
       toast.error(error?.response?.data?.msg);
+      navigator("/login");
     }
   };
 
@@ -401,13 +402,14 @@ export default function MyContext(props) {
         userRole: data?.user?.userRole,
         userOrderID: data?.user?.userOrderID,
       });
+      console.log("check token : " + data.access_Token);
 
-      setAccessToken(data.access_Token);
-      Cookies.set("accessToken", data.access_Token, { expires: 365 });
+      setAccessToken(data?.access_Token);
+      Cookies.set("userAccessToken", data?.access_Token, { expires: 365 });
       toast.success("sign in successfully");
       navigator("/");
     } catch (error) {
-      toast.error(error.response.data.msg);
+      toast.error(error?.response?.data?.msg);
     }
   };
 
@@ -418,9 +420,6 @@ export default function MyContext(props) {
     handelJwtLogin();
   }, []);
 
-  useEffect(() => {
-    console.log("role user : " + user.userRole);
-  }, [user]);
   return (
     <Context.Provider
       value={{

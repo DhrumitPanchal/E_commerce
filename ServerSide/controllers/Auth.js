@@ -64,14 +64,21 @@ async function handleUserLogin(req, res) {
 
 async function handelJwtTokenBasedLogin(req, res) {
   const { access_Token } = req.body;
-  if (access_Token) {
-    const result = await jwt.verify(access_Token, process.env.jwtSecretKey);
-    if (result) {
-      const user = await User.findById(result._doc._id);
-      return res.status(200).json(user);
-    } else {
-      return res.status(403).json("Invalid Token");
+  if (!access_Token) {
+    return res.status(400).json({ msg: "Token is required" });
+  }
+
+  try {
+    const decoded = await jwt.verify(access_Token, process.env.jwtSecretKey);
+    const user = await User.findById(decoded._doc._id);
+    console.log("check userdata : " + decoded._doc._id);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
     }
+
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(403).json({ msg: "Invalid Token" });
   }
 }
 
@@ -122,7 +129,20 @@ async function GoogleLogin(req, res) {
         userRole: "user",
         password: HashPassword,
       });
-      return res.status(201).json({ msg: "user register successfully", user });
+
+      const Payload = {
+        ...newUser,
+      };
+      const token = await jwt.sign(Payload, process.env.jwtSecretKey);
+      const newObject = {
+        msg: "login successfully",
+        user: user,
+      };
+      return res.status(201).json({
+        msg: "user register successfully",
+        newObject,
+        access_Token: token,
+      });
     }
 
     const checkPassword = await bcrypt.compare(decoded?.sub, user.password);
@@ -132,11 +152,14 @@ async function GoogleLogin(req, res) {
       };
       const token = await jwt.sign(Payload, process.env.jwtSecretKey);
       const newObject = {
-        access_Token: token,
         msg: "login successfully",
         user: user,
       };
-      return res.status(200).json(newObject);
+      return res.status(201).json({
+        msg: "user register successfully",
+        newObject,
+        access_Token: token,
+      });
     } else {
       res.status(401).json({ msg: "invalid credentials" });
     }

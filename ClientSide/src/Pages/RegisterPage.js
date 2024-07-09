@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../Redux/Context";
-import axios from "axios";
+import { GoogleLogin } from "@react-oauth/google";
+
 function RegisterPage() {
   const { handelSignUp } = useContext(Context);
   const [formData, setFromData] = useState({
@@ -60,12 +61,14 @@ function RegisterPage() {
             Register
           </div>
 
-          <div
-            onClick={() => googleLogin()}
-            className="cursor-pointer mt-[.6rem] px-[1rem] py-[.4rem] flex  justify-center items-center gap-[1rem] rounded-[.4rem] border-[2px] border-blue-700/40 transition-colors duration-300  hover:bg-blue-500/20 "
-          >
-            <h2 className="text-[1.2rem] font-semibold">Google</h2>
-          </div>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              googleLogin(credentialResponse);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
           <h2>
             If You Have already account ?
             <Link to={"/login"} className="ml-[.6rem] text-blue-500">

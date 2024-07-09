@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../Redux/Context";
 import { Link } from "react-router-dom";
-// import axios from "axios";
-import { GoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
+
 function LoginPage() {
   const { handelSignIn, googleLogin } = useContext(Context);
   const [formData, setFromData] = useState({
@@ -47,12 +47,6 @@ function LoginPage() {
           >
             Login
           </div>
-          {/* <div
-            onClick={() => googleLogin()}
-            className="cursor-pointer mt-[.6rem] px-[1rem] py-[.4rem] flex  justify-center items-center gap-[1rem] rounded-[.4rem] border-[2px] border-blue-700/40 transition-colors duration-300  hover:bg-blue-500/20 "
-          >
-            <h2 className="text-[1.2rem] font-semibold">Google</h2>
-          </div> */}
           <GoogleLogin
             onSuccess={(credentialResponse) => {
               googleLogin(credentialResponse);

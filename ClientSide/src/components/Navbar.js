@@ -5,17 +5,11 @@ import { FaRegUser } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
 import { BsBox2 } from "react-icons/bs";
 
-import {
-  FaShoppingBag,
-  FaRegHeart,
-  FaUser,
-  FaHome,
-  FaBox,
-} from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 import Cookies from "js-cookie";
 import { Context } from "../Redux/Context";
 function Navbar() {
-  const { user, handleLikedProducts, productData } = useContext(Context);
+  const { user } = useContext(Context);
   const [isLogdin, setIsLogdin] = useState(true);
   const [menu, setMenu] = useState(false);
   const navigator = useNavigate();
@@ -28,7 +22,7 @@ function Navbar() {
 
   function logout() {
     navigator("/login");
-    return Cookies.remove("accessToken");
+    return Cookies.remove("userAccessToken");
   }
   return (
     <>
@@ -67,9 +61,9 @@ function Navbar() {
           </Link>
 
           <Link className="relative z-40 p-[.8rem] " to="/cart">
-            {user.cartProducts.length > 0 && (
+            {user?.cartProducts?.length > 0 && (
               <div className="absolute flex justify-center items-center text-[.8rem] top-[1rem] right-[.6rem] h-[1.2rem] w-[1.2rem] rounded-full  text-white bg-black">
-                {user.cartProducts.length}
+                {user?.cartProducts?.length}
               </div>
             )}
             <HiOutlineShoppingBag className="cursor-pointer text-[2rem]" />
@@ -96,7 +90,7 @@ function Navbar() {
           <Link to="profile">
             <h2
               onClick={() => setMenu(!menu)}
-              className="w-full text-black transition-colors duration-300 "
+              className="w-full text-black transition-colors duration-300 cursor-pointer"
             >
               Profile
             </h2>
@@ -105,7 +99,7 @@ function Navbar() {
             <Link to="admin/order">
               <h2
                 onClick={() => setMenu(!menu)}
-                className="w-full text-black transition-colors duration-300 "
+                className="w-full text-black transition-colors duration-300 cursor-pointer"
               >
                 Admin
               </h2>
@@ -113,7 +107,7 @@ function Navbar() {
           )}
           <h2
             onClick={() => logout()}
-            className="w-full text-black transition-colors duration-300 "
+            className="w-full text-black transition-colors duration-300 cursor-pointer"
           >
             Log Out
           </h2>
