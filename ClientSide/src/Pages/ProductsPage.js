@@ -159,8 +159,8 @@ function ProductsPage() {
         {/* ----------------- products ------------------ */}
         <div className="mb-[4rem] flex justify-center w-[calc(100%-22rem)] max-sm:w-full max-sm:mt-[3rem]  px-[1rem] flex-wrap gap-[2.2rem] min-h-[calc(100vh-3.5rem)] max-sm:min-h-fit max-sm:gap-[1rem] ">
           {filterIsActive
-            ? filtProducts?.map((e) => <ProductCard data={e} />)
-            : productData?.map((e) => <ProductCard data={e} />)}
+            ? filtProducts?.map((e) => <ProductCard key={e._id} data={e} />)
+            : productData?.map((e) => <ProductCard key={e._id} data={e} />)}
         </div>
       </section>
     </>

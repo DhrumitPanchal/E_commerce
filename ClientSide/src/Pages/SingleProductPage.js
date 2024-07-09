@@ -153,8 +153,8 @@ function SingleProductPage() {
       </h2>
       <section className="mb-[4rem] mt-[2rem] flex justify-center flex-wrap gap-[3rem] max-sm:gap-[1rem] ">
         {productData?.map((e, index) => (
-          <a href="#navbar">
-            <ProductCard key={index} data={e} />
+          <a href="#navbar" key={e._id}>
+            <ProductCard data={e} />
           </a>
         ))}
       </section>

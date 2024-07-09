@@ -18,7 +18,10 @@ function OrderCard(props) {
     <>
       {orders?.map((item, index) => {
         return (
-          <div className="h-fit max-sm:h-fit flex max-sm:flex-wrap gap-[.8rem] max-sm:gap-[0rem] max-sm:pb-[rem] ">
+          <div
+            key={item._id}
+            className="h-fit max-sm:h-fit flex max-sm:flex-wrap gap-[.8rem] max-sm:gap-[0rem] max-sm:pb-[rem] "
+          >
             <div
               onClick={() => navigator(`/products/${item?._id}`)}
               className="cursor-pointer  select-none h-[10rem] w-[7rem]"

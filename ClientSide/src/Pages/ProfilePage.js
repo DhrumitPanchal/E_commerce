@@ -99,14 +99,17 @@ function ProfilePage() {
         <main className="pb-[2rem] flex flex-col gap-[1.2rem]">
           <h2 className="mt-[1rem] text-[1.4rem] font-semibold">Your Orders</h2>
 
-          {allOrders.length > 0 ? (
+          {allOrders?.length > 0 ? (
             allOrders?.map((data, index) => (
-              <div className="flex flex-col border-b-[.5px] mb-[1rem] border-black/50 ">
+              <div
+                key={data._id}
+                className="flex flex-col border-b-[.5px] mb-[1rem] border-black/50 "
+              >
                 <div className="orders overflow-x-auto pb-[.6rem] flex gap-[1.6rem] mb-[.4rem]">
                   <OrderCard
                     key={index}
                     productsDetails={data}
-                    quantity={user.cartProducts[index]?.Quantity}
+                    quantity={user?.cartProducts[index]?.Quantity}
                   />
                 </div>
 
