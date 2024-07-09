@@ -16,7 +16,7 @@ html {
 
 .active {
   color: black;
-  font-weight: bold;
+  font-weight: 500;
 }
 .loader {
   background-image: conic-gradiEnt(black 300deg, white 300deg);

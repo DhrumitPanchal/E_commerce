@@ -106,10 +106,50 @@ async function handelAdminAccess(req, res) {
   }
 }
 
+async function GoogleLogin(req, res) {
+  try {
+    const { credential } = req.body;
+    const decoded = await jwt.decode(credential.credential);
+
+    const user = await User.findOne({ email: decoded.email });
+
+    if (!user) {
+      const HashPassword = await bcrypt.hash(decoded.sub, 10);
+
+      const newUser = await User.create({
+        name: decoded.name,
+        email: decoded.email,
+        userRole: "user",
+        password: HashPassword,
+      });
+      return res.status(201).json({ msg: "user register successfully", user });
+    }
+
+    const checkPassword = await bcrypt.compare(decoded?.sub, user.password);
+    if (checkPassword) {
+      const Payload = {
+        ...user,
+      };
+      const token = await jwt.sign(Payload, process.env.jwtSecretKey);
+      const newObject = {
+        access_Token: token,
+        msg: "login successfully",
+        user: user,
+      };
+      return res.status(200).json(newObject);
+    } else {
+      res.status(401).json({ msg: "invalid credentials" });
+    }
+  } catch (error) {
+    return res.status(500).json({ msg: "Internal server error" });
+  }
+}
+
 module.exports = {
   handleUserRegister,
   handleUserLogin,
   getAllUsers,
   handelJwtTokenBasedLogin,
   handelAdminAccess,
+  GoogleLogin,
 };

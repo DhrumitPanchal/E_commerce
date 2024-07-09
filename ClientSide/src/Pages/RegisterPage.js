@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../Redux/Context";
+import axios from "axios";
 function RegisterPage() {
   const { handelSignUp } = useContext(Context);
   const [formData, setFromData] = useState({
@@ -11,6 +12,10 @@ function RegisterPage() {
 
   const handleInput = (e) => {
     setFromData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const googleLogin = () => {
+    window.open(`http://localhost:8000/auth/google`, "_self");
   };
   return (
     <div className="fixed top-0 left-0 flex items-center justify-center w-full h-screen bg-white">
@@ -55,7 +60,10 @@ function RegisterPage() {
             Register
           </div>
 
-          <div className="cursor-pointer mt-[.6rem] px-[1rem] py-[.4rem] flex  justify-center items-center gap-[1rem] rounded-[.4rem] border-[2px] border-blue-700/40 transition-colors duration-300  hover:bg-blue-500/20 ">
+          <div
+            onClick={() => googleLogin()}
+            className="cursor-pointer mt-[.6rem] px-[1rem] py-[.4rem] flex  justify-center items-center gap-[1rem] rounded-[.4rem] border-[2px] border-blue-700/40 transition-colors duration-300  hover:bg-blue-500/20 "
+          >
             <h2 className="text-[1.2rem] font-semibold">Google</h2>
           </div>
           <h2>

@@ -59,23 +59,23 @@ function ProductsPage() {
 
   return (
     <>
-      <section className="px-[2rem] max-sm:px-[1rem] py-[1rem]  flex gap-[1.4rem]">
+      <section className="px-[2rem] max-sm:px-[1rem] py-[1rem] flex gap-[1.4rem]">
         <input
           onChange={(e) => handelSearch(e)}
           value={search}
           placeholder="Search Item"
           type="text"
-          className="px-[.8rem] h-[2.4rem] w-[25rem] border-[2px] rounded-[.4rem] text-[1.2rem] border-black/70 focus:border-black focus:border-[2.4px] placeholder:text-black/70"
+          className="px-[.8rem] h-[2.4rem] w-[25rem] border-[1.4px] text-[1rem]  border-black/70 focus:border-black  placeholder:text-black/70 placeholder:font-normal"
         />
         <div
           onClick={() => handelSearchProducts()}
-          className="cursor-pointer h-[2.4rem] w-[8rem] flex justify-center items-center gap-[.6rem] rounded-[.4rem] text-[1.1rem]  tracking-[1px] font-normal bg-black text-white"
+          className="cursor-pointer h-[2.4rem] w-[8rem] flex justify-center items-center gap-[.6rem]  text-[1.1rem]  tracking-[1px] font-normal bg-black text-white"
         >
           <FaMagnifyingGlass className="text-[1rem] text-white " /> Search
         </div>
       </section>
       <section className="mt-[1rem] h-full w-full flex max-sm:flex-col">
-        <aside className="ml-[2rem] max-sm:ml-[1rem] px-[1rem] py-[1rem] bg-blue-500/5 w-[22rem] max-sm:w-[calc(100%-2rem)] h-full">
+        <aside className="ml-[2rem] max-sm:ml-[1rem] px-[1rem] py-[1rem] w-[22rem] max-sm:w-[calc(100%-2rem)] h-full">
           <h2 className="text-[1.2rem] font-medium">Filters</h2>
           <div className="mt-[1rem] flex flex-col gap-[1rem]">
             <div className="">

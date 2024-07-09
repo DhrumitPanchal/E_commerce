@@ -101,7 +101,7 @@ export default function MyContext(props) {
         navigator("/login");
       }
     } catch (error) {
-      toast.error(error.response.data.msg);
+      toast.error(error?.response?.data?.msg);
     }
   };
 
@@ -228,10 +228,10 @@ export default function MyContext(props) {
   const getAllProducts = async () => {
     try {
       await axios.get(BaseURL + "/products").then((result) => {
-        setProductData(result.data.result);
+        setProductData(result?.data?.result);
       });
     } catch (error) {
-      toast.error(error.response.data.msg);
+      toast.error(error?.response?.data?.msg);
     }
   };
 
@@ -286,7 +286,7 @@ export default function MyContext(props) {
       const { data } = await axios.get(BaseURL + "/orders");
       setAllOrders(data.result);
     } catch (error) {
-      toast.error(error.response.data.msg);
+      toast.error(error?.response?.data?.msg);
     }
   };
 
@@ -297,7 +297,7 @@ export default function MyContext(props) {
       const { data } = await axios.get(BaseURL + "/getallusers");
       setAllUsers(data.allUsers);
     } catch (error) {
-      toast.error(error.response.data.msg);
+      toast.error(error?.response?.data?.msg);
     }
   };
 
@@ -386,6 +386,31 @@ export default function MyContext(props) {
     }
   };
 
+  const googleLogin = async (credentialResponse) => {
+    try {
+      const { data } = await axios.post(BaseURL + "/google", {
+        credential: credentialResponse,
+      });
+
+      setUser({
+        name: data?.user?.name,
+        email: data?.user?.email,
+        userId: data?.user?._id,
+        likedProducts: data?.user?.likedProducts,
+        cartProducts: data?.user?.cartProducts,
+        userRole: data?.user?.userRole,
+        userOrderID: data?.user?.userOrderID,
+      });
+
+      setAccessToken(data.access_Token);
+      Cookies.set("accessToken", data.access_Token, { expires: 365 });
+      toast.success("sign in successfully");
+      navigator("/");
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
+
   useEffect(() => {
     getAllProducts();
     handelGetallOrders();
@@ -401,6 +426,7 @@ export default function MyContext(props) {
       value={{
         user,
         setUser,
+        googleLogin,
         productData,
         allOrders,
         allUsers,

@@ -12,16 +12,53 @@ function HomePage() {
     <>
       <section className="bg-red-100 h-[calc(100vh-3.5rem)] max-sm:h-fit w-full flex">
         <img
-          src="https://img.freepik.com/free-photo/photocomposition-horizontal-online-shopping-banner_23-2151201771.jpg?w=1060&t=st=1709046640~exp=1709047240~hmac=d9ab76cfbca0bb544a94d6de81cd650a4f203e052212919b717e6b9dbcf1bef2"
+          src="https://i.pinimg.com/originals/39/d0/a7/39d0a7e4ee4300d46910b1eb77b388f2.jpg"
           alt=""
           className="w-full h-full max-sm:h-fit"
         />
-        {/* <div className="w-1/2 h-full ">
-          <div className="w-full bg-black h-1/2"></div>
-          <div className="w-full h-1/2 "></div>
-        </div>
-        <div className="w-1/2 h-full bg-orange-200"></div> */}
       </section>
+
+      {/* <section className="p-[1.5rem] max-sm:p-[1rem] flex flex-col w-full h-screen max-sm:h-fit gap-[1.5rem] bg-slate-100">
+        <div className="flex max-sm:flex-col max-sm:gap-[1rem] gap-[1.5rem] w-full h-3/5">
+          <div className="w-full h-full bg-red-100 ">
+            <img
+              src="https://i.pinimg.com/564x/7b/c4/3f/7bc43f8561ecedfee36b3d6070361da0.jpg"
+              alt=""
+              className="w-full h-full max-sm:h-fit "
+            />
+          </div>
+          <div className="w-full h-full bg-red-100 ">
+            <img
+              src="https://img.freepik.com/free-photo/photocomposition-horizontal-online-shopping-banner_23-2151201771.jpg?w=1060&t=st=1709046640~exp=1709047240~hmac=d9ab76cfbca0bb544a94d6de81cd650a4f203e052212919b717e6b9dbcf1bef2"
+              alt=""
+              className="w-full h-full max-sm:h-fit"
+            />
+          </div>
+        </div>
+        <div className="max-sm:hidden flex max-sm:flex-col max-sm:gap-[1rem] gap-[1.5rem] w-full  h-2/5">
+          <div className="w-full h-full bg-red-100 ">
+            <img
+              src="https://img.freepik.com/free-photo/photocomposition-horizontal-online-shopping-banner_23-2151201771.jpg?w=1060&t=st=1709046640~exp=1709047240~hmac=d9ab76cfbca0bb544a94d6de81cd650a4f203e052212919b717e6b9dbcf1bef2"
+              alt=""
+              className="w-full h-full max-sm:h-fit"
+            />
+          </div>
+          <div className="w-full h-full bg-red-100 ">
+            <img
+              src="https://img.freepik.com/free-photo/photocomposition-horizontal-online-shopping-banner_23-2151201771.jpg?w=1060&t=st=1709046640~exp=1709047240~hmac=d9ab76cfbca0bb544a94d6de81cd650a4f203e052212919b717e6b9dbcf1bef2"
+              alt=""
+              className="w-full h-full max-sm:h-fit"
+            />
+          </div>
+          <div className="w-full h-full bg-red-100 ">
+            <img
+              src="https://img.freepik.com/free-photo/photocomposition-horizontal-online-shopping-banner_23-2151201771.jpg?w=1060&t=st=1709046640~exp=1709047240~hmac=d9ab76cfbca0bb544a94d6de81cd650a4f203e052212919b717e6b9dbcf1bef2"
+              alt=""
+              className="w-full h-full max-sm:h-fit"
+            />
+          </div>
+        </div>
+      </section> */}
 
       <section className="py-[3rem] flex items-center flex-col">
         <h2 className="text-[1.8rem] font-semibold">
@@ -35,38 +72,6 @@ function HomePage() {
               <ProductCard key={index} data={e} />
             ))}
           </Suspense>
-        </div>
-      </section>
-
-      {/* -------------- poster ------------------- */}
-
-      <section className="mt-[2rem]  px-[6rem] max-sm:px-[1.2rem] py-[2rem] flex flex-col items-center">
-        <h2 className="text-[1.8rem] font-semibold">Blockbuster deals</h2>
-        <div className="mt-[3rem] h-fit w-full flex flex-col gap-[1.2rem]">
-          <div className="h-[22rem] max-sm:h-fit  w-full bg-black/10">
-            <img
-              src="https://img.freepik.com/free-vector/beautiful-happy-diwali-festival-sale-banner_1017-21236.jpg?w=1380&t=st=1705506481~exp=1705507081~hmac=df6156f85c5db8374e1255d6d8a85193c9f7ed956eabd0ea7543be0b4deb6ebf"
-              alt=""
-              className="w-full h-full"
-            />
-          </div>
-
-          <div className="flex max-sm:flex-col gap-[1.2rem]">
-            <div className="h-[22rem] max-sm:h-fit max-sm:min-h-[14rem] w-full bg-black/10">
-              <img
-                src="https://img.freepik.com/premium-vector/flash-sale-banner-template-special-offer-big-sales_110633-460.jpg?size=626&ext=jpg&ga=GA1.1.2119793234.1705506469&semt=ais"
-                alt=""
-                className="w-full h-full"
-              />
-            </div>
-            <div className="h-[22rem] max-sm:h-fit max-sm:min-h-[14rem] w-full bg-black/10">
-              <img
-                src="https://img.freepik.com/free-vector/mega-sale-offers-banner-template_1017-31299.jpg?size=626&ext=jpg&ga=GA1.1.2119793234.1705506469&semt=ais"
-                alt=""
-                className="w-full h-full"
-              />
-            </div>
-          </div>
         </div>
       </section>
     </>

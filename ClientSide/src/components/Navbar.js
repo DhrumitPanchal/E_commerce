@@ -34,10 +34,10 @@ function Navbar() {
     <>
       <nav
         id="navbar"
-        className="relative z-50 px-[2.4rem] h-[3.5rem] max-sm:px-[1rem] flex justify-between items-center border-b-[1px] border-black bg-white"
+        className="relative z-50 px-[2.4rem] h-[3.5rem] max-sm:px-[1rem] flex justify-between items-center bg-white"
       >
-        <Link to="/" className="cursor-pointer text-[1.3rem] font-semibold">
-          ShopNest
+        <Link to="/" className="cursor-pointer text-[1.3rem] font-bold">
+          URBAN FASHION
         </Link>
         <ul className="max-sm:hidden max-sm:z-0 max-sm:absolute max-sm:top-0 max-sm:left-0 flex justify-between items-center gap-[1rem] max-sm:gap-[.2rem]">
           <NavLink
