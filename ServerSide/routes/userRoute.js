@@ -1,6 +1,5 @@
 const express = require("express");
 const router = require("express").Router();
-const passport = require("passport");
 const {
   getAllUsers,
   handleUserRegister,
@@ -41,17 +40,6 @@ Router.put("/cartproducts", updateCartProduct);
 Router.delete("/cartproducts", removeFromCartProduct);
 Router.delete("/cartproducts/all", removeAllCartProduct);
 
-Router.get("/login/success", (req, res) => {
-  if (req.user) {
-    res.status(200).json({
-      error: false,
-      message: "Successfully Loged In",
-      user: req.user,
-    });
-  } else {
-    res.status(403).json({ error: true, message: "Not Authorized" });
-  }
-});
 Router.post("/google", GoogleLogin);
 
 module.exports = Router;
