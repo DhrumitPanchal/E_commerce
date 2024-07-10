@@ -42,20 +42,28 @@ async function addOrder(req, res) {
 }
 
 async function updateOrder(req, res) {
-  const { orderID, orderData, orderStatus } = req.body;
+  const { orderID, orderData } = req.body;
 
-  if (!orderID || !orderData || !orderStatus) {
-    return res.json({ msg: "all details is required" });
+  if (!orderID) {
+    return res.json({ msg: "order ID is required" });
   }
 
   try {
-    const order = await Order.findByIdAndUpdate(orderID, {
-      productsDetails: orderData,
-      orderStatus,
+    const order = await Order.findByIdAndUpdate(orderID, orderData, {
+      new: true,
+      runValidators: true,
     });
 
     res.status(200).json({ msg: "order updated successfully", result: order });
   } catch (error) {
+    if (error?.errors?.status?.name === "ValidatorError") {
+      return res
+        .status(500)
+        .json({
+          error: error?.errors?.status?.properties?.enumValues,
+          msg: "ValidatorError",
+        });
+    }
     return res.status(500).json({ error, msg: "Internal server error" });
   }
 }

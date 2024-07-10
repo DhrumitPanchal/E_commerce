@@ -2,8 +2,13 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../../Redux/Context";
 import OrderCard from "../../components/AdminComponent/OrderCard";
 function AdminOrder() {
-  const { user, allOrders, setAllOrders, handelGetallOrders } =
-    useContext(Context);
+  const {
+    user,
+    allOrders,
+    setAllOrders,
+    handelGetallOrders,
+    handelUpdateOrder,
+  } = useContext(Context);
 
   function getOrderAgeInDays(orderDate) {
     const orderDateObj = new Date(orderDate);
@@ -11,6 +16,19 @@ function AdminOrder() {
     const diffInMilliseconds = currentDate - orderDateObj;
     const Days = Math.round(diffInMilliseconds / (1000 * 60 * 60 * 24)) - 1;
     return Days < 1 ? "Today" : Days;
+  }
+
+  function updateStatus(data) {
+    let updatedStatus =
+      (data?.status === "Order Placed" && "Processing") ||
+      (data?.status === "Processing" && "Shipped") ||
+      (data?.status === "Shipped" && "Delivered");
+    handelUpdateOrder(data?._id, { status: updatedStatus });
+  }
+  function cancelOrder(data) {
+    if (data.status !== "Delivered") {
+      handelUpdateOrder(data?._id, { status: "Cancelled" });
+    }
   }
 
   useEffect(() => {
@@ -39,7 +57,7 @@ function AdminOrder() {
               </div>
 
               <div className="flex max-sm:flex-col py-[.8rem] border-t-[.8px]  border-black/30  items-center max-sm:items-start justify-between w-full">
-                <div className="flex max-sm:flex-col max-sm:gap-[.2rem] gap-[2rem] w-full">
+                <div className="flex max-sm:flex-col max-sm:gap-[.2rem] gap-[2rem] w-fit">
                   <div className="flex gap-[.4rem] font-medium">
                     <h2>Total Items : </h2>
                     <h2>{data?.bill?.totalItems}</h2>
@@ -58,13 +76,45 @@ function AdminOrder() {
                     </h2>
                   </div>
                 </div>
-                <div className="max-sm:mt-[.4rem] flex gap-[2rem] w-fit">
-                  <div className="cursor-pointer capitalize flex items-center px-[2rem] h-[2.2rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-green-600/70 hover:bg-green-600 transition-all duration-300">
+
+                <div className="max-sm:mt-[.8rem] flex gap-[2rem] max-sm:gap-[.8rem] w-fit ">
+                  <div
+                    className={`${
+                      data?.status === "Cancelled" && "max-sm:block"
+                    } ${
+                      data?.status === "Delivered" && "max-sm:block"
+                    } capitalize flex items-center  px-[1rem] h-[2.2rem] max-w-[10rem] min-w-fit rounded-[.4rem] text-[1.1rem] font-semibold ${
+                      data.status === "Cancelled"
+                        ? "text-red-500"
+                        : "text-black/50"
+                    } ${
+                      data.status === "Delivered"
+                        ? "text-green-500"
+                        : "text-black/50"
+                    } } `}
+                  >
                     {data.status}
                   </div>
-                  <div className="cursor-pointer capitalize flex items-center px-[2rem] h-[2.2rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-red-500/80 hover:bg-red-500  transition-all duration-300">
-                    cancel
-                  </div>
+                  {data?.status !== "Cancelled" &&
+                    data?.status !== "Delivered" && (
+                      <div
+                        onClick={() => updateStatus(data)}
+                        className="cursor-pointer capitalize flex items-center px-[2rem] h-[2.2rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-green-600/70 hover:bg-green-600 transition-all duration-300"
+                      >
+                        {data.status === "Order Placed" && "Processing"}
+                        {data.status === "Processing" && "Shipped"}
+                        {data.status === "Shipped" && "Delivered"}
+                      </div>
+                    )}
+                  {data?.status === "Delivered" ||
+                    (data?.status !== "Cancelled" && (
+                      <div
+                        onClick={() => cancelOrder(data)}
+                        className="cursor-pointer capitalize flex items-center px-[2rem] h-[2.2rem] w-fit rounded-[.4rem] text-[1.1rem] font-semibold text-white bg-red-500/80 hover:bg-red-500  transition-all duration-300"
+                      >
+                        cancel
+                      </div>
+                    ))}
                 </div>
               </div>
             </div>

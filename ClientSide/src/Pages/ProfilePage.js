@@ -114,7 +114,7 @@ function ProfilePage() {
                 </div>
 
                 <div className="flex max-sm:flex-col py-[.8rem] border-t-[.8px]  border-black/30  items-center max-sm:items-start justify-between w-full">
-                  <div className="flex max-sm:flex-col max-sm:gap-[.2rem] gap-[2rem] w-full">
+                  <div className="flex max-sm:flex-col max-sm:gap-[.2rem] gap-[2rem] w-fit">
                     <div className="flex gap-[.4rem] font-medium">
                       <h2>Total Items : </h2>
                       <h2>{data?.bill?.totalItems}</h2>
@@ -130,7 +130,17 @@ function ProfilePage() {
                       <h2>{getOrderAgeInDays(data?.date_added)}</h2>
                     </div>
                   </div>
-                  <div className="cursor-pointer capitalize flex items-center text-[1.1rem] font-semibold ">
+                  <div
+                    className={`cursor-pointer capitalize flex items-center text-[1.1rem] font-semibold ${
+                      data.status === "Cancelled"
+                        ? "text-red-500"
+                        : "text-black"
+                    } ${
+                      data.status === "Delivered"
+                        ? "text-green-500"
+                        : "text-black"
+                    } `}
+                  >
                     {data.status}
                   </div>
                 </div>

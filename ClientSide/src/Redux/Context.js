@@ -373,6 +373,20 @@ export default function MyContext(props) {
     handelGetallOrders();
   };
 
+  // Update Order ------------------------------------------------------------
+
+  const handelUpdateOrder = async (orderID, orderData) => {
+    try {
+      const { data } = await axios.put(BaseURL + "/orders", {
+        orderID,
+        orderData,
+      });
+      console.log("update res : " + data.result);
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
+
   // admin access using email and password ----------------------
 
   const handelAdminAccess = async (email, password) => {
@@ -449,6 +463,7 @@ export default function MyContext(props) {
         handelUpdateProduct,
         handelAllCartAddOrder,
         handelGetallOrders,
+        handelUpdateOrder,
         handelGetAllUsers,
         handelSignUp,
         handelSignIn,

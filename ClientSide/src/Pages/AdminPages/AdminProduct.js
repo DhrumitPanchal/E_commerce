@@ -24,8 +24,9 @@ function AdminProduct() {
             type="text"
             className="px-[.8rem] h-[2.4rem] max-sm:w-full w-[25rem] border-[2px] rounded-[.4rem] text-[1.2rem] border-black/70 focus:border-black focus:border-[2.4px] placeholder:text-black/70"
           />
-          <div className="cursor-pointer h-[2.4rem] w-[8rem] flex justify-center items-center gap-[.6rem] rounded-[.4rem] text-[1.1rem]  tracking-[1px] font-normal bg-black text-white">
-            <FaMagnifyingGlass className="text-[1rem] text-white " /> Search
+          <div className="cursor-pointer h-[2.4rem] w-[8rem]  max-sm:w-fit max-sm:px-[.8rem] flex justify-center items-center gap-[.6rem] rounded-[.4rem] text-[1.1rem]  tracking-[1px] font-normal bg-black text-white">
+            <FaMagnifyingGlass className="text-[1rem] text-white " />{" "}
+            <span className="max-sm:hidden">Search</span>
           </div>
         </div>
       </nav>
