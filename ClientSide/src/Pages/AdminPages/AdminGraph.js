@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from "react";
-import { Context } from "../../Redux/Context";
-import { useNavigate } from "react-router-dom";
-function AdminGraph() {
-  const { user } = useContext(Context);
-  const navigator = useNavigate();
+import Charts from "../../components/Charts/Charts";
 
-  return <div>AdminGraph</div>;
+function AdminGraph() {
+  return (
+    <div className="w-full h-fit p-[2rem] bg-slate-200/70">
+      <Charts />
+    </div>
+  );
 }
 
 export default AdminGraph;

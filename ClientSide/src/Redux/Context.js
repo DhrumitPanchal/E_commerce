@@ -382,6 +382,7 @@ export default function MyContext(props) {
         orderData,
       });
       console.log("update res : " + data.result);
+      handelGetallOrders();
     } catch (error) {
       toast.error(error.response.data.msg);
     }

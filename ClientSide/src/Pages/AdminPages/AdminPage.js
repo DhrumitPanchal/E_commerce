@@ -15,19 +15,19 @@ function AdminPage({ Path }) {
   const { user } = useContext(Context);
   const navigator = useNavigate();
 
-  useEffect(() => {
-    console.log("role : " + user?.userRole);
-    if (user?.userRole === "admin") {
-      navigator("/admin/order");
-    } else {
-      {
-        navigator("/admin");
-      }
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   console.log("role : " + user?.userRole);
+  //   if (user?.userRole === "admin") {
+  //     navigator("/admin/order");
+  //   } else {
+  //     {
+  //       navigator("/admin");
+  //     }
+  //   }
+  // }, [user]);
 
   return (
-    <div className="relative flex w-screen h-screen overflow-x-hidden h-sc">
+    <div className="relative flex w-screen h-screen overflow-x-hidden ">
       <FaBars
         onClick={() => setOpenMenu(!openMenu)}
         className="hidden max-sm:block mt-[.9rem] ml-[1rem]  z-[10] text-[1.8rem]"
